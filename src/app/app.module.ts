@@ -6,10 +6,11 @@ import { AppComponent } from './app.component';
 import { ShoppingListComponent } from './shopping/shopping-list/shopping-list.component';
 import { ShoppingListEditorComponent } from './shopping/shopping-list-editor/shopping-list-editor.component';
 import { IngredientComponent } from './shopping/ingredient/ingredient.component';
-import { RecipeComponent } from './recipe-book/recipe/recipe.component';
+import { RecipesComponent } from './recipe-book/recipes/recipes.component';
 import { RecipeDetailComponent } from './recipe-book/recipe-detail/recipe-detail.component';
 import { RecipeItemComponent } from './recipe-book/recipe-item/recipe-item.component';
 import { RecipeListComponent } from './recipe-book/recipe-list/recipe-list.component';
+import { HeaderComponent } from './header/header.component';
 
 @NgModule({
   declarations: [
@@ -17,10 +18,11 @@ import { RecipeListComponent } from './recipe-book/recipe-list/recipe-list.compo
     ShoppingListComponent,
 	ShoppingListEditorComponent,
 	IngredientComponent,
-	RecipeComponent,
+	RecipesComponent,
 	RecipeDetailComponent,
 	RecipeItemComponent,
 	RecipeListComponent,
+	HeaderComponent,
   ],
   imports: [
     BrowserModule
