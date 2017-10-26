@@ -5,10 +5,10 @@
 		</div>
 	</div>
 
-	<app-header></app-header>
+	<app-header (navigationEvent)="onNavigationEvent($event)"></app-header>
 
-	<app-recipes></app-recipes>
+	<app-recipes [ngStyle]="getRecipeVisibility()"></app-recipes>
 	
-	<app-shopping-list></app-shopping-list>
+	<app-shopping-list [ngStyle]="getShoppingListVisibility()"></app-shopping-list>
 
 </div>
