@@ -8,7 +8,7 @@ import { Component } from '@angular/core';
 export class AppComponent {
 
   //default to recipes first
-  currentNavigation:string = 'Recipes';
+  currentNavigation:string = 'Shopping List';
   
   onNavigationEvent(event) {
     this.currentNavigation = event;
