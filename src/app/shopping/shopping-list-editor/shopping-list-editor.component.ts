@@ -10,16 +10,13 @@ export class ShoppingListEditorComponent {
 	@ViewChild('nameInput') nameInput: ElementRef;
 	@ViewChild('amountInput') amountInput: ElementRef;
 	
-	@Output('ingredientCreated') ingredientAdded = new EventEmitter<Ingredient>();
+	@Output('ingredientCreated') ingredientCreated = new EventEmitter<Ingredient>();
 
 	onAdd() {
 		let name = this.nameInput.nativeElement.value;
 		let amount = this.amountInput.nativeElement.value;
 		
-		this.ingredientAdded.emit(new Ingredient(name, amount));
-		
-		this.nameInput.nativeElement.value = "";
-		this.amountInput.nativeElement.value = "";
+		this.ingredientCreated.emit(new Ingredient(name, amount));
 	}
 	
 	onDelete() {
