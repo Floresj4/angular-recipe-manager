@@ -19,7 +19,7 @@ export class ShoppingListEditorComponent {
 		const name = this.nameInput.nativeElement.value;
 		const amount = this.amountInput.nativeElement.value;
 
-		this.shoppingservice.ingredientCreated.emit(
+		this.shoppingservice.addIngredient(
 			new Ingredient(name, amount));
 	}
 	
