@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Recipe } from '../recipe.model';
+import { Ingredient } from '../../shopping/ingredient.model';
 
 @Component({
   selector: 'app-recipe-detail',
@@ -8,7 +9,7 @@ import { Recipe } from '../recipe.model';
 })
 export class RecipeDetailComponent implements OnInit {
   //todo, fix this with templating or something else
-  @Input() recipe: Recipe = new Recipe("", "", "");
+  @Input() recipe: Recipe = new Recipe("", "", "", []);
   
   constructor() {
   
