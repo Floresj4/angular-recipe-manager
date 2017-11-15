@@ -3,9 +3,9 @@ import { Ingredient } from './ingredient.model';
 
 export class ShoppingService implements OnInit {
 
-	ingredientCreated = new EventEmitter<Ingredient>();
+	ingredientCreated = new EventEmitter<Ingredient[]>();
 
-	ingredients: Ingredient[] = [
+	private ingredients: Ingredient[] = [
     	new Ingredient('Tomatoes', 3),
 		new Ingredient('Celery', 1),
 		new Ingredient('Carrot', 6),
@@ -21,6 +21,11 @@ export class ShoppingService implements OnInit {
 		
 	}
 	
+	addIngredient(ingredient:Ingredient) {
+		this.ingredients.push(ingredient);
+		this.ingredientCreated.emit(this.ingredients);
+	}
+
 	getIngredients() {
 		return this.ingredients.slice();
 	}
