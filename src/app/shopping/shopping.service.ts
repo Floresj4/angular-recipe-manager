@@ -21,6 +21,11 @@ export class ShoppingService implements OnInit {
 		
 	}
 	
+	addIngredients(ingredients: Ingredient[]) {
+		this.ingredients = this.ingredients.concat(ingredients);
+		this.ingredientCreated.emit(this.ingredients);
+	}
+
 	addIngredient(ingredient:Ingredient) {
 		this.ingredients.push(ingredient);
 		this.ingredientCreated.emit(this.ingredients);
