@@ -7,8 +7,6 @@
 
 	<app-header (navigationEvent)="onNavigationEvent($event)"></app-header>
 
-	<app-recipes [ngStyle]="getRecipeVisibility()"></app-recipes>
-	
-	<app-shopping-list [ngStyle]="getShoppingListVisibility()"></app-shopping-list>
+	<router-outlet></router-outlet>
 
 </div>
