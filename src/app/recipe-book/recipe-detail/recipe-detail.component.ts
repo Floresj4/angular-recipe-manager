@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute, Data } from '@angular/router';
 import { Recipe } from '../recipe.model';
 import { Ingredient } from '../../shopping/ingredient.model';
 import { ShoppingService } from '../../shopping/shopping.service';
@@ -19,9 +19,8 @@ export class RecipeDetailComponent implements OnInit {
 	}
 	
 	ngOnInit() {
-		this.route.params.subscribe((params: Params) => {
-			const id = +params['id'];
-			console.log("current url param: " + id);
+		this.route.data.subscribe((data: Data) => {
+			this.recipe = data['recipe'];
 		});
 	}
 	

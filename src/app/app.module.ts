@@ -10,6 +10,8 @@ import { RecipesComponent } from './recipe-book/recipes/recipes.component';
 import { RecipeDetailComponent } from './recipe-book/recipe-detail/recipe-detail.component';
 import { RecipeItemComponent } from './recipe-book/recipe-item/recipe-item.component';
 import { RecipeListComponent } from './recipe-book/recipe-list/recipe-list.component';
+import { RecipeService } from './recipe-book/recipe.service';
+import { RecipeResolver } from './recipe-book/recipe-resolver.service';
 import { HeaderComponent } from './header/header.component';
 import { DropDownDirective } from './shared/dropdown.directive';
 
@@ -30,7 +32,7 @@ import { DropDownDirective } from './shared/dropdown.directive';
     BrowserModule,
 	AppRoutingModule
   ],
-  providers: [],
+  providers: [RecipeService, RecipeResolver],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

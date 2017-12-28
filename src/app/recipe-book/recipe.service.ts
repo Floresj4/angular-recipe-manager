@@ -44,4 +44,14 @@ export class RecipeService implements OnInit {
 		//return a copy of the array
 		return this.recipes.slice();
 	}
+	
+	getRecipe(id: number) {
+		let recipe = null;
+		this.recipes.forEach((r) => {
+			if(r.id === id)
+				recipe = r;
+		});
+		
+		return recipe;
+	}
 }
