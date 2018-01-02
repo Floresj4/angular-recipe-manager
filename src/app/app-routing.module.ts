@@ -6,6 +6,7 @@ import { RecipeResolver } from './recipe-book/recipe-resolver.service';
 import { ShoppingListComponent } from './shopping/shopping-list/shopping-list.component';
 
 const appRoutes: Routes = [
+  { path: '', redirectTo: '/recipes', pathMatch: 'full' },
 	{ path: 'recipes', component: RecipesComponent, children: [
 		{path: ':id', component: RecipeDetailComponent, resolve: { recipe: RecipeResolver } }
 	]},
@@ -21,5 +22,5 @@ const appRoutes: Routes = [
 	]
 })
 export class AppRoutingModule {
-	
+
 }
