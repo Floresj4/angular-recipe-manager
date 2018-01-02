@@ -51,7 +51,7 @@ export class RecipeService implements OnInit {
 			if(r.id === id)
 				recipe = r;
 		});
-		
+
 		return recipe;
 	}
 }

@@ -10,21 +10,23 @@ import { ShoppingService } from '../../shopping/shopping.service';
   styleUrls: ['./recipe-detail.component.css']
 })
 export class RecipeDetailComponent implements OnInit {
-	
-	//todo, fix this with templating or something else
-	@Input() recipe: Recipe = new Recipe(1, "", "", "", []);
-  
-	constructor(private shoppingservice: ShoppingService,
-				private route: ActivatedRoute) {
-	}
-	
-	ngOnInit() {
-		this.route.data.subscribe((data: Data) => {
-			this.recipe = data['recipe'];
-		});
-	}
-	
-	onToShoppingList() {
-		this.shoppingservice.addIngredients(this.recipe.ingredients.slice());
-	}
+
+  // todo, fix this with templating or something else
+  @Input() recipe: Recipe = new Recipe(1, "", "", "", []);
+
+  constructor(private shoppingservice: ShoppingService,
+        private route: ActivatedRoute) {
+  }
+
+  ngOnInit() {
+    this.route.data.subscribe((data: Data) => {
+      console.log("new recipe data: " + JSON.stringify(data));
+      this.recipe = data['recipe'];
+    });
+  }
+
+  onToShoppingList() {
+    const ingredients = this.recipe.ingredients.slice();
+    this.shoppingservice.addIngredients(ingredients);
+  }
 }

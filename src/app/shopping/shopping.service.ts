@@ -6,23 +6,23 @@ export class ShoppingService implements OnInit {
 	ingredientCreated = new EventEmitter<Ingredient[]>();
 
 	private ingredients: Ingredient[] = [
-    	new Ingredient('Tomatoes', 3),
+		new Ingredient('Tomato', 3),
 		new Ingredient('Celery', 1),
 		new Ingredient('Carrot', 6),
 		new Ingredient('Potato', 2),
 		new Ingredient('Pasta', 1)
 	];
-	
+
 	constructor() {
-		
+
 	}
-	
+
 	ngOnInit() {
-		
+
 	}
-	
-	addIngredients(ingredients: Ingredient[]) {
-		this.ingredients = this.ingredients.concat(ingredients);
+
+	addIngredients(ing: Ingredient[]) {
+	  this.ingredients.concat(ing);
 		this.ingredientCreated.emit(this.ingredients);
 	}
 
