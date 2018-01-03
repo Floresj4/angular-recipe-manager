@@ -22,6 +22,7 @@ export class ShoppingService implements OnInit {
 	}
 
 	addIngredients(ing: Ingredient[]) {
+	  console.log(JSON.stringify(ing));
 	  this.ingredients.concat(ing);
 		this.ingredientCreated.emit(this.ingredients);
 	}

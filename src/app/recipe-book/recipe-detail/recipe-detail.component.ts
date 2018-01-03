@@ -1,7 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Data } from '@angular/router';
 import { Recipe } from '../recipe.model';
-import { Ingredient } from '../../shopping/ingredient.model';
 import { ShoppingService } from '../../shopping/shopping.service';
 
 @Component({
@@ -11,16 +10,15 @@ import { ShoppingService } from '../../shopping/shopping.service';
 })
 export class RecipeDetailComponent implements OnInit {
 
-  // todo, fix this with templating or something else
-  @Input() recipe: Recipe = new Recipe(1, "", "", "", []);
+  recipe: Recipe;
 
   constructor(private shoppingservice: ShoppingService,
         private route: ActivatedRoute) {
   }
 
   ngOnInit() {
+    // subscribe to the data coming in from the routing parameter
     this.route.data.subscribe((data: Data) => {
-      console.log("new recipe data: " + JSON.stringify(data));
       this.recipe = data['recipe'];
     });
   }
