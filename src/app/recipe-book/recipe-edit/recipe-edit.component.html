@@ -1,3 +1,35 @@
-<p>
-  recipe-edit works!
-</p>
+<div class="row">
+  <h3>Edit Recipe</h3>
+</div>
+<div class="row">
+  <div class="col-xs-12">
+    <img
+        style="max-height:300px;"
+        [src]="currentRecipe.imagePath"
+         alt="{{currentRecipe.name}}" />
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-xs-12">
+    <div class="form-group">
+      <label for="recipeName">Name</label>
+      <input id='recipeName' class="form-control" [(ngModel)]="currentRecipe.name"
+        placeholder="Recipe name">
+    </div>
+
+    <div class="form-group">
+      <label for="imagePath">Image Path</label>
+      <input id="imagePath" class="form-control" [(ngModel)]="currentRecipe.imagePath"
+        placeholder="Image URL">
+    </div>
+
+    <div class="form-group">
+      <label for="recipeDescription">Description</label>
+      <input id="recipeDescription" class="form-control" [(ngModel)]="currentRecipe.description"
+        placeholder="About this recipe...">
+    </div>
+
+    <button class="btn btn-success" >Save</button>
+  </div>
+</div>

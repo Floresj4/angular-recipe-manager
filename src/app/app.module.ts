@@ -15,24 +15,28 @@ import { RecipeResolver } from './recipe-book/recipe-resolver.service';
 import { HeaderComponent } from './header/header.component';
 import { DropDownDirective } from './shared/dropdown.directive';
 import { RecipeStartComponent } from './recipe-book/recipe-start/recipe-start.component';
+import { RecipeEditComponent } from './recipe-book/recipe-edit/recipe-edit.component';
+import {FormsModule} from '@angular/forms';
 
 @NgModule({
   declarations: [
     AppComponent,
     ShoppingListComponent,
-	ShoppingListEditorComponent,
-	IngredientComponent,
-	RecipesComponent,
-	RecipeDetailComponent,
-	RecipeItemComponent,
-	RecipeListComponent,
-	HeaderComponent,
+	  ShoppingListEditorComponent,
+	  IngredientComponent,
+	  RecipesComponent,
+	  RecipeDetailComponent,
+	  RecipeItemComponent,
+	  RecipeListComponent,
+	  HeaderComponent,
     DropDownDirective,
-    RecipeStartComponent
+    RecipeStartComponent,
+    RecipeEditComponent
   ],
   imports: [
     BrowserModule,
-	AppRoutingModule
+    FormsModule,
+	  AppRoutingModule
   ],
   providers: [RecipeService, RecipeResolver],
   bootstrap: [AppComponent]
