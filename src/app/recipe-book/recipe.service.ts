@@ -1,13 +1,11 @@
-import { OnInit, EventEmitter } from '@angular/core';
+import { OnInit } from '@angular/core';
 import { Recipe } from './recipe.model';
 import { Ingredient } from '../shopping/ingredient.model';
 
 export class RecipeService implements OnInit {
-	
-	recipeSelected = new EventEmitter<Recipe>();
 
 	private recipes: Recipe[] = [
-	  new Recipe(1, 'Macaroni & cheese', 
+	  new Recipe(1, 'Macaroni & cheese',
 				 'nom nom nom',
 				 'https://d3cizcpymoenau.cloudfront.net/images/legacy/34780/SFS_SouthernMacandCheese_20V216.jpg',
 				[
@@ -31,20 +29,18 @@ export class RecipeService implements OnInit {
 		  new Ingredient("Cheese", 2)
 	  ])
 	];
-	
+
 	constructor() {
-		
-	}
+  }
 
 	ngOnInit() {
-		
 	}
 
 	getRecipes() {
 		//return a copy of the array
 		return this.recipes.slice();
 	}
-	
+
 	getRecipe(id: number) {
 		let recipe = null;
 		this.recipes.forEach((r) => {

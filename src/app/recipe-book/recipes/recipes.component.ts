@@ -1,6 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Recipe } from '../recipe.model';
-import { RecipeService } from '../recipe.service';
 
 @Component({
   selector: 'app-recipes',
@@ -9,17 +7,9 @@ import { RecipeService } from '../recipe.service';
 })
 export class RecipesComponent implements OnInit {
 
-  currentRecipe: Recipe;
-  
-  constructor(private recipeservice:RecipeService){
-	  
+  constructor(){
   }
-	
+
   ngOnInit() {
-    //subscribe to the event emitted by the list component
-    this.recipeservice.recipeSelected
-      .subscribe((recipe:Recipe) => {
-        this.currentRecipe = recipe;
-	});
   }
 }
