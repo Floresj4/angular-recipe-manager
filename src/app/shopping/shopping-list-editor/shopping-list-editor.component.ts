@@ -62,13 +62,7 @@ export class ShoppingListEditorComponent implements OnInit, OnDestroy {
 	}
 
 	onClear() {
-
-	  // this can be done via this.shoppingListForm.reset as well
-	  this.shoppingListForm.setValue({
-      'name': '',
-      'amount': ''
-    });
-
+	  this.shoppingListForm.reset();
 	  this.editingMode = false;
   }
 
