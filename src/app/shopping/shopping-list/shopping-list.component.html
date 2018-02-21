@@ -5,11 +5,16 @@
 		<hr/>
 
 		<ul class='list-group'>
-			<a class='list-group-item' style='cursor: pointer'
-			   *ngFor='let ig of ingredients; let i = index'
-         (click)="onEditItem(i)">
-				{{ ig.name }} ({{ ig.amount }})
-			</a>
+      <div class='list-group-item' *ngFor='let ig of ingredients; let i = index'>
+        <a style='cursor: pointer; text-decoration: none'
+           (click)="onEditItem(i)">
+          <span style="display:inline-block; width:100px;">{{ ig.name }}</span> <span class="badge">{{ ig.amount }}</span>
+        </a>
+        <a class='pull-right' style="cursor: pointer"
+          (click)="onDeleteItem(i)">
+          <span class="glyphicon glyphicon-remove"></span>
+        </a>
+      </div>
 		</ul>
 	</div>
 </div>
