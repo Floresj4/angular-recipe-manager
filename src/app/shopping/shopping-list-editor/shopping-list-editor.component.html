@@ -3,6 +3,7 @@
 		<h3>Shopping List Editor</h3>
 
     <!-- #name="ngForm" provides access to the javascript object created by angular -->
+    <!-- in the template driven approach, name and ngModel are required to bind the form properly -->
 		<form #shoppingListForm="ngForm" (ngSubmit)="onSubmit()">
 
 			<div class='row'>
