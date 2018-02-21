@@ -41,9 +41,19 @@ export class ShoppingListEditorComponent implements OnInit, OnDestroy {
     console.log(this.shoppingListForm);
 
 	  if(this.shoppingListForm.valid) {
-      this.shoppingservice.addIngredient(
-        new Ingredient(this.shoppingListForm.value.name
-          , this.shoppingListForm.value.amount));
+
+	    const ingredient: Ingredient = new Ingredient(
+	      this.shoppingListForm.value.name,
+        this.shoppingListForm.value.amount);
+
+	    if(this.editingMode) {
+	      this.editingMode = false;
+	      this.shoppingservice.updateIngredient(this.editingIndex, ingredient);
+      } else {
+        this.shoppingservice.addIngredient(ingredient);
+      }
+
+      this.shoppingListForm.reset();
     }
 	}
 
