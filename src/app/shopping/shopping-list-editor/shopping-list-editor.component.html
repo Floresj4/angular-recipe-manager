@@ -34,7 +34,7 @@
 
 					<button class='btn btn-success'
 						type='submit'
-            [disabled]="!shoppingListForm.valid">Add</button>
+            [disabled]="!shoppingListForm.valid">{{ editingMode ? 'Update' : 'Add' }}</button>
 
 					<button class='btn btn-danger'
 						type='button'
