@@ -6,6 +6,8 @@ export class ShoppingService implements OnInit {
 
 	ingredientCreated = new Subject<Ingredient[]>();
 
+  startedEditing = new Subject<number>();
+
 	private ingredients: Ingredient[] = [
 		new Ingredient('Tomato', 3),
 		new Ingredient('Celery', 1),
@@ -29,6 +31,10 @@ export class ShoppingService implements OnInit {
 		this.ingredients.push(ingredient);
 		this.ingredientCreated.next(this.ingredients.slice());
 	}
+
+	getIngredient(index: number) {
+    return this.ingredients[index];
+  }
 
 	getIngredients() {
 		return this.ingredients.slice();
