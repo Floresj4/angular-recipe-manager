@@ -4,7 +4,7 @@ import {Subject} from 'rxjs/Subject';
 
 export class ShoppingService implements OnInit {
 
-	ingredientCreated = new Subject<Ingredient[]>();
+  ingredientChanged = new Subject<Ingredient[]>();
 
   startedEditing = new Subject<number>();
 
@@ -24,12 +24,12 @@ export class ShoppingService implements OnInit {
 
 	addIngredients(ing: Ingredient[]) {
 	  this.ingredients.concat(ing);
-		this.ingredientCreated.next(this.ingredients.slice());
+		this.ingredientChanged.next(this.ingredients.slice());
 	}
 
 	addIngredient(ingredient:Ingredient) {
 		this.ingredients.push(ingredient);
-		this.ingredientCreated.next(this.ingredients.slice());
+		this.ingredientChanged.next(this.ingredients.slice());
 	}
 
 	getIngredient(index: number) {
@@ -39,4 +39,9 @@ export class ShoppingService implements OnInit {
 	getIngredients() {
 		return this.ingredients.slice();
 	}
+
+	updateIngredient(index: number, newIngredient: Ingredient) {
+	  this.ingredients[index] = newIngredient;
+	  this.ingredientChanged.next(this.ingredients.slice());
+  }
 }
