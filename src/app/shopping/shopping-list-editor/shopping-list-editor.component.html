@@ -32,7 +32,8 @@
 				<div class='col-xs-12'>
 
 					<button class='btn btn-success'
-						type='submit'>Add</button>
+						type='submit'
+            [disabled]="!gitshoppingListForm.valid">Add</button>
 
 					<button class='btn btn-danger'
 						type='button'
