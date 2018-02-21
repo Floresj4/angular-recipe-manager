@@ -28,4 +28,13 @@ export class ShoppingListEditorComponent {
 	onDelete() {
 		console.log("deleting ingredient");
 	}
+
+	onClear() {
+
+	  // this can be done via this.shoppingListForm.reset as well
+	  this.shoppingListForm.setValue({
+      'name': '',
+      'amount': ''
+    });
+  }
 }
