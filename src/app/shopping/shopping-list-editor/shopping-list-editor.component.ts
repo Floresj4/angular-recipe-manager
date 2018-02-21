@@ -68,6 +68,8 @@ export class ShoppingListEditorComponent implements OnInit, OnDestroy {
       'name': '',
       'amount': ''
     });
+
+	  this.editingMode = false;
   }
 
   ngOnDestroy() {
