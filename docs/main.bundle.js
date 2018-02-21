@@ -964,7 +964,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/shopping/shopping-list-editor/shopping-list-editor.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class='row'>\r\n\t<div class='col-md-12'>\r\n\t\t<h3>Shopping List Editor</h3>\r\n\t\t<form>\r\n\t\t\t<div class='row'>\r\n\t\t\t\t<div class='col-sm-5 form-group'>\r\n\t\t\t\t\t<label for='name'>Name</label>\r\n\t\t\t\t\t<input\r\n\t\t\t\t\t\ttype='text'\r\n\t\t\t\t\t\tid='name'\r\n\t\t\t\t\t\tclass='form-control'\r\n\t\t\t\t\t\t#nameInput>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class='col-sm-2 form-group'>\r\n\t\t\t\t\t<label for='amount'>Amount</label>\r\n\t\t\t\t\t<input\r\n\t\t\t\t\t\ttype='number' \r\n\t\t\t\t\t    id='amount' \r\n\t\t\t\t\t    class='form-control'\t\t\t\t\t   \r\n\t\t\t\t\t\t   #amountInput>\r\n\t\t\t\t</div>\r\n\t\t\t</div>\r\n\t\t\t<div class='row'>\r\n\t\t\t\t<div class='col-xs-12'>\r\n\t\t\t\t\t<button class='btn btn-success' \r\n\t\t\t\t\t\ttype='button'\r\n\t\t\t\t\t\t(click)=\"onAdd()\">Add</button>\r\n\t\t\t\t\t\r\n\t\t\t\t\t<button class='btn btn-danger'\r\n\t\t\t\t\t\ttype='button'\r\n\t\t\t\t\t\t(click)=\"onDelete()\">Delete</button>\r\n\t\t\t\t\t\r\n\t\t\t\t\t<button class='btn btn-primary' type='button'>Clear</button>\r\n\t\t\t\t</div>\r\n\t\t\t</div>\r\n\t\t</form>\r\n\t</div>\r\n</div>"
+module.exports = "<div class='row'>\r\n\t<div class='col-md-12'>\r\n\t\t<h3>Shopping List Editor</h3>\r\n\r\n    <!-- #name=\"ngForm\" provides access to the javascript object created by angular -->\r\n    <!-- in the template driven approach, name and ngModel are required to bind the form properly -->\r\n\t\t<form #shoppingListForm=\"ngForm\" (ngSubmit)=\"onSubmit()\">\r\n\r\n\t\t\t<div class='row'>\r\n        <div class='col-sm-5 form-group'>\r\n\t\t\t\t\t<label for='name'>Name</label>\r\n\t\t\t\t\t<input type='text'\r\n\t\t\t\t\t\tid='name'\r\n            name=\"name\"\r\n\t\t\t\t\t\tclass='form-control'\r\n\t\t\t\t\t\tngModel\r\n            required>\r\n\t\t\t\t</div>\r\n\r\n\t\t\t\t<div class='col-sm-2 form-group'>\r\n\t\t\t\t\t<label for='amount'>Amount</label>\r\n\t\t\t\t\t<input type='number'\r\n            class='form-control'\r\n            id='amount'\r\n            name=\"amount\"\r\n            ngModel\r\n            required\r\n            pattern=\"^[1-9]+[0-9]*$\">\r\n\t\t\t\t</div>\r\n\t\t\t</div>\r\n\r\n\t\t\t<div class='row'>\r\n\t\t\t\t<div class='col-xs-12'>\r\n\r\n\t\t\t\t\t<button class='btn btn-success'\r\n\t\t\t\t\t\ttype='submit'\r\n            [disabled]=\"!shoppingListForm.valid\">{{ editingMode ? 'Update' : 'Add' }}</button>\r\n\r\n\t\t\t\t\t<button class='btn btn-danger'\r\n\t\t\t\t\t\ttype='button'\r\n\t\t\t\t\t\t(click)=\"onDelete()\">Delete</button>\r\n\r\n\t\t\t\t\t<button type='button'\r\n            class='btn btn-primary'\r\n            (click)=\"onClear()\">Clear</button>\r\n\t\t\t\t</div>\r\n\t\t\t</div>\r\n\r\n\t\t</form>\r\n\r\n\t</div>\r\n</div>\r\n"
 
 /***/ }),
 
@@ -976,6 +976,7 @@ module.exports = "<div class='row'>\r\n\t<div class='col-md-12'>\r\n\t\t<h3>Shop
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__ingredient_model__ = __webpack_require__("../../../../../src/app/shopping/ingredient.model.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__shopping_service__ = __webpack_require__("../../../../../src/app/shopping/shopping.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_forms__ = __webpack_require__("../../../forms/@angular/forms.es5.js");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -988,38 +989,69 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+
 var ShoppingListEditorComponent = (function () {
     function ShoppingListEditorComponent(shoppingservice) {
         this.shoppingservice = shoppingservice;
+        this.editingMode = false;
     }
-    ShoppingListEditorComponent.prototype.onAdd = function () {
-        var name = this.nameInput.nativeElement.value;
-        var amount = this.amountInput.nativeElement.value;
-        this.shoppingservice.addIngredient(new __WEBPACK_IMPORTED_MODULE_1__ingredient_model__["a" /* Ingredient */](name, amount));
+    ShoppingListEditorComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.editingSubscription = this.shoppingservice.startedEditing
+            .subscribe(function (index) {
+            _this.editingMode = true;
+            _this.editingIndex = index;
+            _this.editingItem = _this.shoppingservice.getIngredient(index);
+            //update the form to display the values
+            _this.shoppingListForm.setValue({
+                name: _this.editingItem.name,
+                amount: _this.editingItem.amount
+            });
+        });
+    };
+    ShoppingListEditorComponent.prototype.onSubmit = function () {
+        console.log(this.shoppingListForm);
+        if (this.shoppingListForm.valid) {
+            var ingredient = new __WEBPACK_IMPORTED_MODULE_1__ingredient_model__["a" /* Ingredient */](this.shoppingListForm.value.name, this.shoppingListForm.value.amount);
+            if (this.editingMode) {
+                this.editingMode = false;
+                this.shoppingservice.updateIngredient(this.editingIndex, ingredient);
+            }
+            else {
+                this.shoppingservice.addIngredient(ingredient);
+            }
+            this.shoppingListForm.reset();
+        }
     };
     ShoppingListEditorComponent.prototype.onDelete = function () {
         console.log("deleting ingredient");
     };
+    ShoppingListEditorComponent.prototype.onClear = function () {
+        // this can be done via this.shoppingListForm.reset as well
+        this.shoppingListForm.setValue({
+            'name': '',
+            'amount': ''
+        });
+    };
+    ShoppingListEditorComponent.prototype.ngOnDestroy = function () {
+        this.editingSubscription.unsubscribe();
+    };
     return ShoppingListEditorComponent;
 }());
 __decorate([
-    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_16" /* ViewChild */])('nameInput'),
-    __metadata("design:type", typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_0__angular_core__["v" /* ElementRef */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__angular_core__["v" /* ElementRef */]) === "function" && _a || Object)
-], ShoppingListEditorComponent.prototype, "nameInput", void 0);
-__decorate([
-    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_16" /* ViewChild */])('amountInput'),
-    __metadata("design:type", typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_0__angular_core__["v" /* ElementRef */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__angular_core__["v" /* ElementRef */]) === "function" && _b || Object)
-], ShoppingListEditorComponent.prototype, "amountInput", void 0);
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_16" /* ViewChild */])('shoppingListForm'),
+    __metadata("design:type", typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_3__angular_forms__["b" /* NgForm */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__angular_forms__["b" /* NgForm */]) === "function" && _a || Object)
+], ShoppingListEditorComponent.prototype, "shoppingListForm", void 0);
 ShoppingListEditorComponent = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["o" /* Component */])({
         selector: 'app-shopping-list-editor',
         template: __webpack_require__("../../../../../src/app/shopping/shopping-list-editor/shopping-list-editor.component.html"),
         styles: [__webpack_require__("../../../../../src/app/shopping/shopping-list-editor/shopping-list-editor.component.css")]
     }),
-    __metadata("design:paramtypes", [typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_2__shopping_service__["a" /* ShoppingService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__shopping_service__["a" /* ShoppingService */]) === "function" && _c || Object])
+    __metadata("design:paramtypes", [typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2__shopping_service__["a" /* ShoppingService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__shopping_service__["a" /* ShoppingService */]) === "function" && _b || Object])
 ], ShoppingListEditorComponent);
 
-var _a, _b, _c;
+var _a, _b;
 //# sourceMappingURL=shopping-list-editor.component.js.map
 
 /***/ }),
@@ -1045,7 +1077,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/shopping/shopping-list/shopping-list.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class='row'>\r\n\t<div class='col-md-12'>\r\n\t\t<app-shopping-list-editor></app-shopping-list-editor>\r\n\r\n\t\t<hr/>\r\n\t\t\r\n\t\t<ul class='list-group'>\r\n\t\t\t<a class='list-group-item' style='cursor: pointer'\r\n\t\t\t   *ngFor='let i of ingredients'>\r\n\t\t\t\t{{ i.name }} ({{ i.amount }})\r\n\t\t\t</a>\r\n\t\t</ul>\r\n\t</div>\r\n</div>"
+module.exports = "<div class='row'>\r\n\t<div class='col-md-12'>\r\n\t\t<app-shopping-list-editor></app-shopping-list-editor>\r\n\r\n\t\t<hr/>\r\n\r\n\t\t<ul class='list-group'>\r\n\t\t\t<a class='list-group-item' style='cursor: pointer'\r\n\t\t\t   *ngFor='let ig of ingredients; let i = index'\r\n         (click)=\"onEditItem(i)\">\r\n\t\t\t\t{{ ig.name }} ({{ ig.amount }})\r\n\t\t\t</a>\r\n\t\t</ul>\r\n\t</div>\r\n</div>\r\n"
 
 /***/ }),
 
@@ -1074,11 +1106,14 @@ var ShoppingListComponent = (function () {
     ShoppingListComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.ingredients = this.shoppingservice.getIngredients();
-        this.ingredientSubscription = this.shoppingservice.ingredientCreated
+        this.ingredientSubscription = this.shoppingservice.ingredientChanged
             .subscribe(function (ingredients) {
             console.log("receiving ingredients..." + ingredients.length);
             _this.ingredients = ingredients.slice();
         });
+    };
+    ShoppingListComponent.prototype.onEditItem = function (index) {
+        this.shoppingservice.startedEditing.next(index);
     };
     ShoppingListComponent.prototype.ngOnDestroy = function () {
         this.ingredientSubscription.unsubscribe();
@@ -1110,7 +1145,8 @@ var _a;
 
 var ShoppingService = (function () {
     function ShoppingService() {
-        this.ingredientCreated = new __WEBPACK_IMPORTED_MODULE_1_rxjs_Subject__["a" /* Subject */]();
+        this.ingredientChanged = new __WEBPACK_IMPORTED_MODULE_1_rxjs_Subject__["a" /* Subject */]();
+        this.startedEditing = new __WEBPACK_IMPORTED_MODULE_1_rxjs_Subject__["a" /* Subject */]();
         this.ingredients = [
             new __WEBPACK_IMPORTED_MODULE_0__ingredient_model__["a" /* Ingredient */]('Tomato', 3),
             new __WEBPACK_IMPORTED_MODULE_0__ingredient_model__["a" /* Ingredient */]('Celery', 1),
@@ -1123,14 +1159,21 @@ var ShoppingService = (function () {
     };
     ShoppingService.prototype.addIngredients = function (ing) {
         this.ingredients.concat(ing);
-        this.ingredientCreated.next(this.ingredients.slice());
+        this.ingredientChanged.next(this.ingredients.slice());
     };
     ShoppingService.prototype.addIngredient = function (ingredient) {
         this.ingredients.push(ingredient);
-        this.ingredientCreated.next(this.ingredients.slice());
+        this.ingredientChanged.next(this.ingredients.slice());
+    };
+    ShoppingService.prototype.getIngredient = function (index) {
+        return this.ingredients[index];
     };
     ShoppingService.prototype.getIngredients = function () {
         return this.ingredients.slice();
+    };
+    ShoppingService.prototype.updateIngredient = function (index, newIngredient) {
+        this.ingredients[index] = newIngredient;
+        this.ingredientChanged.next(this.ingredients.slice());
     };
     return ShoppingService;
 }());
