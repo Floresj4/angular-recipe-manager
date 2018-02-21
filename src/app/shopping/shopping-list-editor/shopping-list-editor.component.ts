@@ -57,10 +57,6 @@ export class ShoppingListEditorComponent implements OnInit, OnDestroy {
     }
 	}
 
-	onDelete() {
-		console.log("deleting ingredient");
-	}
-
 	onClear() {
 	  this.shoppingListForm.reset();
 	  this.editingMode = false;
