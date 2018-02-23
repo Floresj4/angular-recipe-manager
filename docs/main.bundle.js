@@ -217,7 +217,8 @@ AppModule = __decorate([
         ],
         imports: [
             __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__["a" /* BrowserModule */],
-            __WEBPACK_IMPORTED_MODULE_17__angular_forms__["a" /* FormsModule */],
+            __WEBPACK_IMPORTED_MODULE_17__angular_forms__["c" /* FormsModule */],
+            __WEBPACK_IMPORTED_MODULE_17__angular_forms__["e" /* ReactiveFormsModule */],
             __WEBPACK_IMPORTED_MODULE_2__app_routing_module__["a" /* AppRoutingModule */]
         ],
         providers: [__WEBPACK_IMPORTED_MODULE_11__recipe_book_recipe_service__["a" /* RecipeService */], __WEBPACK_IMPORTED_MODULE_12__recipe_book_recipe_resolver_service__["a" /* RecipeResolver */]],
@@ -375,7 +376,7 @@ exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-b
 
 
 // module
-exports.push([module.i, "", ""]);
+exports.push([module.i, ".img-recipe-edit {\r\n  border:1px solid #ddd;\r\n}\r\n", ""]);
 
 // exports
 
@@ -388,7 +389,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/recipe-book/recipe-edit/recipe-edit.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"row\">\r\n  <h3>Edit Recipe</h3>\r\n</div>\r\n<div class=\"row\">\r\n  <div class=\"col-xs-12\">\r\n    <img\r\n        style=\"max-height:300px;\"\r\n        [src]=\"currentRecipe.imagePath\"\r\n         alt=\"{{currentRecipe.name}}\" />\r\n  </div>\r\n</div>\r\n\r\n<div class=\"row\">\r\n  <div class=\"col-xs-12\">\r\n    <div class=\"form-group\">\r\n      <label for=\"recipeName\">Name</label>\r\n      <input id='recipeName' class=\"form-control\" [(ngModel)]=\"currentRecipe.name\"\r\n        placeholder=\"Recipe name\">\r\n    </div>\r\n\r\n    <div class=\"form-group\">\r\n      <label for=\"imagePath\">Image Path</label>\r\n      <input id=\"imagePath\" class=\"form-control\" [(ngModel)]=\"currentRecipe.imagePath\"\r\n        placeholder=\"Image URL\">\r\n    </div>\r\n\r\n    <div class=\"form-group\">\r\n      <label for=\"recipeDescription\">Description</label>\r\n      <input id=\"recipeDescription\" class=\"form-control\" [(ngModel)]=\"currentRecipe.description\"\r\n        placeholder=\"About this recipe...\">\r\n    </div>\r\n\r\n    <button class=\"btn btn-success\" >Save</button>\r\n  </div>\r\n</div>\r\n"
+module.exports = "<div class=\"row\">\r\n  <h3>{{ editMode ? 'Edit' : 'New' }} Recipe</h3>\r\n</div>\r\n\r\n<div class=\"row\">\r\n  <div class=\"col-xs-12 form-group\">\r\n    <img\r\n        class=\"img-responsive img-recipe-edit\"\r\n        [src]=\"currentRecipe.imagePath\"\r\n         alt=\"{{currentRecipe.name}}\" />\r\n  </div>\r\n</div>\r\n\r\n<div class=\"row\">\r\n  <div class=\"col-xs-12\">\r\n\r\n    <form [formGroup]=\"recipeEditForm\" (ngSubmit)=\"onSubmit()\">\r\n\r\n      <div class=\"form-group\">\r\n        <label for=\"recipeName\">Name</label>\r\n        <input type='text'\r\n               id='recipeName'\r\n               class=\"form-control\"\r\n               name=\"recipeName\"\r\n               [ngModel]=\"currentRecipe.name\"\r\n               formControlName=\"recipeName\"\r\n               placeholder=\"Recipe name\"\r\n               required>\r\n      </div>\r\n\r\n      <div class=\"form-group\">\r\n        <label for=\"imagePath\">Image Path</label>\r\n        <input type='text'\r\n          id=\"imagePath\"\r\n          name=\"imagePath\"\r\n          [ngModel]=\"currentRecipe.imagePath\"\r\n          formControlName=\"imagePath\"\r\n          class=\"form-control\"\r\n          placeholder=\"Image URL\"\r\n          required>\r\n      </div>\r\n\r\n      <div class=\"form-group\">\r\n        <label for=\"recipeDescription\">Description</label>\r\n        <input type=\"text\"\r\n          id=\"recipeDescription\"\r\n          name=\"recipeDescription\"\r\n          [ngModel]=\"currentRecipe.description\"\r\n          formControlName=\"recipeDescription\"\r\n          class=\"form-control\"\r\n          placeholder=\"About this recipe...\"\r\n          required>\r\n      </div>\r\n\r\n      <div class=\"form-group\">\r\n        <button type='submit'\r\n            class=\"btn btn-success\">Save</button>\r\n\r\n        <button type=\"button\"\r\n            class=\"btn btn-danger\"\r\n            (click)=\"onCancel()\">Cancel</button>\r\n      </div>\r\n\r\n    </form>\r\n\r\n  </div>\r\n</div>\r\n"
 
 /***/ }),
 
@@ -401,6 +402,7 @@ module.exports = "<div class=\"row\">\r\n  <h3>Edit Recipe</h3>\r\n</div>\r\n<di
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_router__ = __webpack_require__("../../../router/@angular/router.es5.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__recipe_service__ = __webpack_require__("../../../../../src/app/recipe-book/recipe.service.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__recipe_model__ = __webpack_require__("../../../../../src/app/recipe-book/recipe.model.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__angular_forms__ = __webpack_require__("../../../forms/@angular/forms.es5.js");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -414,14 +416,21 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+
 var RecipeEditComponent = (function () {
-    function RecipeEditComponent(route, recipeService) {
+    function RecipeEditComponent(route, router, recipeService) {
         this.route = route;
+        this.router = router;
         this.recipeService = recipeService;
         this.editMode = false;
     }
     RecipeEditComponent.prototype.ngOnInit = function () {
         var _this = this;
+        this.recipeEditForm = new __WEBPACK_IMPORTED_MODULE_4__angular_forms__["b" /* FormGroup */]({
+            'recipeName': new __WEBPACK_IMPORTED_MODULE_4__angular_forms__["a" /* FormControl */](null, __WEBPACK_IMPORTED_MODULE_4__angular_forms__["f" /* Validators */].required),
+            'imagePath': new __WEBPACK_IMPORTED_MODULE_4__angular_forms__["a" /* FormControl */](null, __WEBPACK_IMPORTED_MODULE_4__angular_forms__["f" /* Validators */].required),
+            'recipeDescription': new __WEBPACK_IMPORTED_MODULE_4__angular_forms__["a" /* FormControl */](null, __WEBPACK_IMPORTED_MODULE_4__angular_forms__["f" /* Validators */].required)
+        });
         //custom observables will need to be clean-up ngOnDestroy or similar
         this.route.params.subscribe(function (params) {
             _this.id = +params['id'];
@@ -435,6 +444,13 @@ var RecipeEditComponent = (function () {
             }
         });
     };
+    RecipeEditComponent.prototype.onCancel = function () {
+        this.recipeEditForm.reset();
+        this.router.navigate(['../'], { 'relativeTo': this.route });
+    };
+    RecipeEditComponent.prototype.onSubmit = function () {
+        console.log(this.recipeEditForm.value);
+    };
     return RecipeEditComponent;
 }());
 RecipeEditComponent = __decorate([
@@ -443,10 +459,10 @@ RecipeEditComponent = __decorate([
         template: __webpack_require__("../../../../../src/app/recipe-book/recipe-edit/recipe-edit.component.html"),
         styles: [__webpack_require__("../../../../../src/app/recipe-book/recipe-edit/recipe-edit.component.css")]
     }),
-    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* ActivatedRoute */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* ActivatedRoute */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2__recipe_service__["a" /* RecipeService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__recipe_service__["a" /* RecipeService */]) === "function" && _b || Object])
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* ActivatedRoute */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* ActivatedRoute */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* Router */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* Router */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_2__recipe_service__["a" /* RecipeService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__recipe_service__["a" /* RecipeService */]) === "function" && _c || Object])
 ], RecipeEditComponent);
 
-var _a, _b;
+var _a, _b, _c;
 //# sourceMappingURL=recipe-edit.component.js.map
 
 /***/ }),
@@ -964,7 +980,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/shopping/shopping-list-editor/shopping-list-editor.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class='row'>\r\n\t<div class='col-md-12'>\r\n\t\t<h3>Shopping List Editor</h3>\r\n\r\n    <!-- #name=\"ngForm\" provides access to the javascript object created by angular -->\r\n    <!-- in the template driven approach, name and ngModel are required to bind the form properly -->\r\n\t\t<form #shoppingListForm=\"ngForm\" (ngSubmit)=\"onSubmit()\">\r\n\r\n\t\t\t<div class='row'>\r\n        <div class='col-sm-5 form-group'>\r\n\t\t\t\t\t<label for='name'>Name</label>\r\n\t\t\t\t\t<input type='text'\r\n\t\t\t\t\t\tid='name'\r\n            name=\"name\"\r\n\t\t\t\t\t\tclass='form-control'\r\n\t\t\t\t\t\tngModel\r\n            required>\r\n\t\t\t\t</div>\r\n\r\n\t\t\t\t<div class='col-sm-2 form-group'>\r\n\t\t\t\t\t<label for='amount'>Amount</label>\r\n\t\t\t\t\t<input type='number'\r\n            class='form-control'\r\n            id='amount'\r\n            name=\"amount\"\r\n            ngModel\r\n            required\r\n            pattern=\"^[1-9]+[0-9]*$\">\r\n\t\t\t\t</div>\r\n\t\t\t</div>\r\n\r\n\t\t\t<div class='row'>\r\n\t\t\t\t<div class='col-xs-12'>\r\n\r\n\t\t\t\t\t<button class='btn btn-success'\r\n\t\t\t\t\t\ttype='submit'\r\n            [disabled]=\"!shoppingListForm.valid\">{{ editingMode ? 'Update' : 'Add' }}</button>\r\n\r\n\t\t\t\t\t<button class='btn btn-danger'\r\n\t\t\t\t\t\ttype='button'\r\n\t\t\t\t\t\t(click)=\"onDelete()\">Delete</button>\r\n\r\n\t\t\t\t\t<button type='button'\r\n            class='btn btn-primary'\r\n            (click)=\"onClear()\">Clear</button>\r\n\t\t\t\t</div>\r\n\t\t\t</div>\r\n\r\n\t\t</form>\r\n\r\n\t</div>\r\n</div>\r\n"
+module.exports = "<div class='row'>\r\n\t<div class='col-md-12'>\r\n\t\t<h3>Shopping List Editor</h3>\r\n\r\n    <!-- #name=\"ngForm\" provides access to the javascript object created by angular -->\r\n    <!-- in the template driven approach, name and ngModel are required to bind the form properly -->\r\n\t\t<form #shoppingListForm=\"ngForm\" (ngSubmit)=\"onSubmit()\">\r\n\r\n\t\t\t<div class='row'>\r\n        <div class='col-sm-5 form-group'>\r\n\t\t\t\t\t<label for='name'>Name</label>\r\n\t\t\t\t\t<input type='text'\r\n\t\t\t\t\t\tid='name'\r\n            name=\"name\"\r\n\t\t\t\t\t\tclass='form-control'\r\n\t\t\t\t\t\tngModel\r\n            required>\r\n\t\t\t\t</div>\r\n\r\n\t\t\t\t<div class='col-sm-2 form-group'>\r\n\t\t\t\t\t<label for='amount'>Amount</label>\r\n\t\t\t\t\t<input type='number'\r\n            class='form-control'\r\n            id='amount'\r\n            name=\"amount\"\r\n            ngModel\r\n            required\r\n            pattern=\"^[1-9]+[0-9]*$\">\r\n\t\t\t\t</div>\r\n\t\t\t</div>\r\n\r\n\t\t\t<div class='row'>\r\n\t\t\t\t<div class='col-xs-12'>\r\n\r\n\t\t\t\t\t<button class='btn btn-success'\r\n\t\t\t\t\t\ttype='submit'\r\n            [disabled]=\"!shoppingListForm.valid\">{{ editingMode ? 'Update' : 'Add' }}</button>\r\n\r\n\t\t\t\t\t<button type='button'\r\n            class='btn btn-primary'\r\n            (click)=\"onClear()\">Clear</button>\r\n\t\t\t\t</div>\r\n\t\t\t</div>\r\n\r\n\t\t</form>\r\n\r\n\t</div>\r\n</div>\r\n"
 
 /***/ }),
 
@@ -1023,15 +1039,9 @@ var ShoppingListEditorComponent = (function () {
             this.shoppingListForm.reset();
         }
     };
-    ShoppingListEditorComponent.prototype.onDelete = function () {
-        console.log("deleting ingredient");
-    };
     ShoppingListEditorComponent.prototype.onClear = function () {
-        // this can be done via this.shoppingListForm.reset as well
-        this.shoppingListForm.setValue({
-            'name': '',
-            'amount': ''
-        });
+        this.shoppingListForm.reset();
+        this.editingMode = false;
     };
     ShoppingListEditorComponent.prototype.ngOnDestroy = function () {
         this.editingSubscription.unsubscribe();
@@ -1040,7 +1050,7 @@ var ShoppingListEditorComponent = (function () {
 }());
 __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_16" /* ViewChild */])('shoppingListForm'),
-    __metadata("design:type", typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_3__angular_forms__["b" /* NgForm */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__angular_forms__["b" /* NgForm */]) === "function" && _a || Object)
+    __metadata("design:type", typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_3__angular_forms__["d" /* NgForm */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__angular_forms__["d" /* NgForm */]) === "function" && _a || Object)
 ], ShoppingListEditorComponent.prototype, "shoppingListForm", void 0);
 ShoppingListEditorComponent = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["o" /* Component */])({
@@ -1077,7 +1087,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/shopping/shopping-list/shopping-list.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class='row'>\r\n\t<div class='col-md-12'>\r\n\t\t<app-shopping-list-editor></app-shopping-list-editor>\r\n\r\n\t\t<hr/>\r\n\r\n\t\t<ul class='list-group'>\r\n\t\t\t<a class='list-group-item' style='cursor: pointer'\r\n\t\t\t   *ngFor='let ig of ingredients; let i = index'\r\n         (click)=\"onEditItem(i)\">\r\n\t\t\t\t{{ ig.name }} ({{ ig.amount }})\r\n\t\t\t</a>\r\n\t\t</ul>\r\n\t</div>\r\n</div>\r\n"
+module.exports = "<div class='row'>\r\n\t<div class='col-md-12'>\r\n\t\t<app-shopping-list-editor></app-shopping-list-editor>\r\n\r\n\t\t<hr/>\r\n\r\n\t\t<ul class='list-group'>\r\n      <div class='list-group-item' *ngFor='let ig of ingredients; let i = index'>\r\n        <a style='cursor: pointer; text-decoration: none'\r\n           (click)=\"onEditItem(i)\">\r\n          <span style=\"display:inline-block; width:100px;\">{{ ig.name }}</span> <span class=\"badge\">{{ ig.amount }}</span>\r\n        </a>\r\n        <a class='pull-right' style=\"cursor: pointer\"\r\n          (click)=\"onDeleteItem(i)\">\r\n          <span class=\"glyphicon glyphicon-remove\"></span>\r\n        </a>\r\n      </div>\r\n\t\t</ul>\r\n\t</div>\r\n</div>\r\n"
 
 /***/ }),
 
@@ -1114,6 +1124,9 @@ var ShoppingListComponent = (function () {
     };
     ShoppingListComponent.prototype.onEditItem = function (index) {
         this.shoppingservice.startedEditing.next(index);
+    };
+    ShoppingListComponent.prototype.onDeleteItem = function (index) {
+        this.shoppingservice.deleteIngredient(index);
     };
     ShoppingListComponent.prototype.ngOnDestroy = function () {
         this.ingredientSubscription.unsubscribe();
@@ -1163,6 +1176,10 @@ var ShoppingService = (function () {
     };
     ShoppingService.prototype.addIngredient = function (ingredient) {
         this.ingredients.push(ingredient);
+        this.ingredientChanged.next(this.ingredients.slice());
+    };
+    ShoppingService.prototype.deleteIngredient = function (index) {
+        this.ingredients.splice(index, 1);
         this.ingredientChanged.next(this.ingredients.slice());
     };
     ShoppingService.prototype.getIngredient = function (index) {
