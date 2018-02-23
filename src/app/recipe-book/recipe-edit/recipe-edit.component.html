@@ -54,6 +54,7 @@
 
       <div class="form-group">
         <button type='submit'
+            [disabled]="!recipeEditForm.valid"
             class="btn btn-success">Save</button>
 
         <button type="button"
