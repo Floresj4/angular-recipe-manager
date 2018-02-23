@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute, Params} from '@angular/router';
 import {RecipeService} from '../recipe.service';
 import {Recipe} from '../recipe.model';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
 
 @Component({
   selector: 'app-recipe-edit',
@@ -15,11 +16,20 @@ export class RecipeEditComponent implements OnInit {
 
   currentRecipe: Recipe;
 
+  recipeEditForm: FormGroup;
+
   constructor(private route: ActivatedRoute,
               private recipeService: RecipeService) {
   }
 
   ngOnInit() {
+
+    this.recipeEditForm = new FormGroup({
+      'recipeName': new FormControl(null, Validators.required),
+      'imagePath': new FormControl(null, Validators.required),
+      'recipeDescription': new FormControl(null, Validators.required)
+    });
+
     //custom observables will need to be clean-up ngOnDestroy or similar
     this.route.params.subscribe((params: Params) => {
       this.id = +params['id'];
@@ -34,4 +44,7 @@ export class RecipeEditComponent implements OnInit {
     });
   }
 
+  onSubmit() {
+    console.log(this.recipeEditForm.value);
+  }
 }

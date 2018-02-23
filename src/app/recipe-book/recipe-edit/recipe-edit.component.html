@@ -14,28 +14,51 @@
 <div class="row">
   <div class="col-xs-12">
 
-    <div class="form-group">
-      <label for="recipeName">Name</label>
-      <input id='recipeName' class="form-control" [(ngModel)]="currentRecipe.name"
-        placeholder="Recipe name">
-    </div>
+    <form [formGroup]="recipeEditForm" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label for="recipeName">Name</label>
+        <input type='text'
+               id='recipeName'
+               class="form-control"
+               name="recipeName"
+               [ngModel]="currentRecipe.name"
+               formControlName="recipeName"
+               placeholder="Recipe name"
+               required>
+      </div>
 
-    <div class="form-group">
-      <label for="imagePath">Image Path</label>
-      <input id="imagePath" class="form-control" [(ngModel)]="currentRecipe.imagePath"
-        placeholder="Image URL">
-    </div>
+      <div class="form-group">
+        <label for="imagePath">Image Path</label>
+        <input type='text'
+          id="imagePath"
+          name="imagePath"
+          [ngModel]="currentRecipe.imagePath"
+          formControlName="imagePath"
+          class="form-control"
+          placeholder="Image URL"
+          required>
+      </div>
 
-    <div class="form-group">
-      <label for="recipeDescription">Description</label>
-      <input id="recipeDescription" class="form-control" [(ngModel)]="currentRecipe.description"
-        placeholder="About this recipe...">
-    </div>
+      <div class="form-group">
+        <label for="recipeDescription">Description</label>
+        <input type="text"
+          id="recipeDescription"
+          name="recipeDescription"
+          [ngModel]="currentRecipe.description"
+          formControlName="recipeDescription"
+          class="form-control"
+          placeholder="About this recipe..."
+          required>
+      </div>
 
-    <button type='submit'
-        class="btn btn-success">Save</button>
-    <button type="button"
-        class="btn btn-danger">Cancel</button>
+      <div class="form-group">
+        <button type='submit'
+            class="btn btn-success">Save</button>
+        <button type="button"
+            class="btn btn-danger">Cancel</button>
+      </div>
+
+    </form>
 
   </div>
 </div>
