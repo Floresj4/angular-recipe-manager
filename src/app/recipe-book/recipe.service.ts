@@ -36,6 +36,10 @@ export class RecipeService implements OnInit {
 	ngOnInit() {
 	}
 
+	addRecipe(recipe: Recipe) {
+	  this.recipes.push(recipe);
+  }
+
 	getRecipes() {
 		//return a copy of the array
 		return this.recipes.slice();

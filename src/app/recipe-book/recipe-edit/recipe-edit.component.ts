@@ -12,6 +12,7 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 export class RecipeEditComponent implements OnInit {
 
   id: number;
+
   editMode: boolean =  false;
 
   currentRecipe: Recipe;
@@ -52,6 +53,15 @@ export class RecipeEditComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.recipeEditForm.value);
+
+    if(!this.editMode) {
+      var submitRecipe: Recipe = new Recipe(-1,
+        this.recipeEditForm.value.name,
+        this.recipeEditForm.value.description,
+        this.recipeEditForm.value.imagePath,
+        null);
+
+      this.recipeService.addRecipe(submitRecipe);
+    }
   }
 }
