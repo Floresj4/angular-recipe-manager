@@ -2,7 +2,8 @@
   <h3>{{ editMode ? 'Edit' : 'New' }} Recipe</h3>
 </div>
 
-<div class="row">
+<div class="row"
+  [class]="editMode ? 'image-path-visible' : ''">
   <div class="col-xs-12 form-group">
     <img
         class="img-responsive img-recipe-edit"

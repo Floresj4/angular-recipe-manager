@@ -1,3 +1,7 @@
 .img-recipe-edit {
   border:1px solid #ddd;
 }
+
+.image-path-hidden {
+  display: none;
+}
