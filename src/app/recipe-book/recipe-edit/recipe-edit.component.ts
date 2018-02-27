@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute, Params, Router} from '@angular/router';
 import {RecipeService} from '../recipe.service';
 import {Recipe} from '../recipe.model';
-import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {FormArray, FormControl, FormGroup, Validators} from '@angular/forms';
 
 @Component({
   selector: 'app-recipe-edit',
@@ -15,8 +15,6 @@ export class RecipeEditComponent implements OnInit {
 
   editMode: boolean =  false;
 
-  currentRecipe: Recipe;
-
   recipeEditForm: FormGroup;
 
   constructor(private route: ActivatedRoute,
@@ -26,23 +24,26 @@ export class RecipeEditComponent implements OnInit {
 
   ngOnInit() {
 
-    this.recipeEditForm = new FormGroup({
-      'recipeName': new FormControl(null, Validators.required),
-      'imagePath': new FormControl(null),
-      'recipeDescription': new FormControl(null, Validators.required)
-    });
-
     //custom observables will need to be clean-up ngOnDestroy or similar
     this.route.params.subscribe((params: Params) => {
       this.id = +params['id'];
       this.editMode = params['id'] != null;
+      this.initForm();
+    });
+  }
 
-      if(this.editMode) {
-        this.currentRecipe = this.recipeService.getRecipe(this.id);
-        console.log("editing recipe " + JSON.stringify(this.currentRecipe));
-      } else {
-        this.currentRecipe = new Recipe(-1, "", "", "", []);
-      }
+  initForm() {
+    let currentRecipe: Recipe = (this.editMode) ?
+      this.recipeService.getRecipe(this.id)
+      : new Recipe(-1, "", "", "", []);
+
+    console.log(currentRecipe);
+
+    this.recipeEditForm = new FormGroup({
+      'recipeName': new FormControl(currentRecipe.name, Validators.required),
+      'imagePath': new FormControl(currentRecipe.imagePath),
+      'recipeDescription': new FormControl(currentRecipe.description, Validators.required),
+      'ingredients': new FormArray([])
     });
   }
 
