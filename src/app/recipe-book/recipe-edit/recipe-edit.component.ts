@@ -53,6 +53,10 @@ export class RecipeEditComponent implements OnInit {
     });
   }
 
+  onAddIngredient() {
+
+  }
+
   onCancel() {
     this.recipeEditForm.reset();
     this.router.navigate(['../'],
