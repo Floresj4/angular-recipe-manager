@@ -40,8 +40,8 @@ export class RecipeEditComponent implements OnInit {
     let ingredientsData: FormArray = new FormArray([]);
     currentRecipe.ingredients.forEach((ingredient) => {
       ingredientsData.push(new FormGroup({
-        'name': new FormControl(ingredient.name),
-        'amount': new FormControl(ingredient.amount)
+        'name': new FormControl(ingredient.name, Validators.required),
+        'amount': new FormControl(ingredient.amount, Validators.required)
       }))
     });
 
@@ -56,8 +56,8 @@ export class RecipeEditComponent implements OnInit {
   onAddIngredient() {
     (<FormArray>this.recipeEditForm.get('ingredients')).push(
       new FormGroup({
-        'name': new FormControl(null),
-        'amount': new FormControl(null)
+        'name': new FormControl(null, Validators.required),
+        'amount': new FormControl(null, Validators.required)
       })
     )
   }
