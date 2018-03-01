@@ -1,6 +1,6 @@
 import { OnInit } from '@angular/core';
 import { Recipe } from './recipe.model';
-import { Ingredient } from '../shopping/ingredient.model';
+import { Ingredient } from '../shopping/Ingredient.model';
 
 export class RecipeService implements OnInit {
 

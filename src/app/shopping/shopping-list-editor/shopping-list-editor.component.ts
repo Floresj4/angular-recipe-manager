@@ -1,5 +1,5 @@
 import {Component, ViewChild, ElementRef, Output, EventEmitter, OnInit, OnDestroy} from '@angular/core';
-import { Ingredient } from '../ingredient.model';
+import { Ingredient } from '../Ingredient.model';
 import { ShoppingService } from '../shopping.service';
 import {NgForm} from '@angular/forms';
 import {Subscription} from 'rxjs/Subscription';

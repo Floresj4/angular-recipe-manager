@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Params, Router} from '@angular/router';
 import {RecipeService} from '../recipe.service';
 import {Recipe} from '../recipe.model';
 import {FormArray, FormControl, FormGroup, Validators} from '@angular/forms';
+import {Ingredient} from '../../shopping/Ingredient.model';
 
 @Component({
   selector: 'app-recipe-edit',
@@ -38,10 +39,10 @@ export class RecipeEditComponent implements OnInit {
       : Recipe.emptyRecipe();
 
     let ingredientsData: FormArray = new FormArray([]);
-    currentRecipe.ingredients.forEach((ingredient) => {
+    currentRecipe.ingredients.forEach((ing) => {
       ingredientsData.push(new FormGroup({
-        'name': new FormControl(ingredient.name, Validators.required),
-        'amount': new FormControl(ingredient.amount, [Validators.required,
+        'name': new FormControl(ing.name, Validators.required),
+        'amount': new FormControl(ing.amount, [Validators.required,
           Validators.pattern(/^[1-9]+[0-9]*$/)])
       }))
     });
@@ -72,14 +73,26 @@ export class RecipeEditComponent implements OnInit {
 
   onSubmit() {
 
-    if(!this.editMode) {
-      var submitRecipe: Recipe = new Recipe(-1,
-        this.recipeEditForm.value.name,
-        this.recipeEditForm.value.description,
-        this.recipeEditForm.value.imagePath,
-        null);
+    // populate the ingredients from the form
+    let ingredients: Ingredient[] = null;
+    this.recipeEditForm.get('ingredients').value.forEach((ing) => {
+      ingredients.push(new Ingredient(ing.name, ing.amount));
+    });
 
+    //build a recipe to submit
+    var submitRecipe: Recipe = new Recipe(-1,
+      this.recipeEditForm.value.name,
+      this.recipeEditForm.value.description,
+      this.recipeEditForm.value.imagePath,
+      ingredients);
+
+    //add or update depending on the mode
+    if(this.editMode) {
+      this.recipeService.updateRecipe(0, submitRecipe);
+    } else {
       this.recipeService.addRecipe(submitRecipe);
     }
+
+    this.recipeEditForm.reset();
   }
 }

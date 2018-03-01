@@ -1,5 +1,5 @@
 import { OnInit} from '@angular/core';
-import { Ingredient } from './ingredient.model';
+import { Ingredient } from './Ingredient.model';
 import {Subject} from 'rxjs/Subject';
 
 export class ShoppingService implements OnInit {
