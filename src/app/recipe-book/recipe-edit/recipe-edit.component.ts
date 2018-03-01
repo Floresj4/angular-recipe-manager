@@ -35,7 +35,7 @@ export class RecipeEditComponent implements OnInit {
   initForm() {
     let currentRecipe: Recipe = (this.editMode) ?
       this.recipeService.getRecipe(this.id)
-      : new Recipe(-1, "", "", "", []);
+      : Recipe.emptyRecipe();
 
     let ingredientsData: FormArray = new FormArray([]);
     currentRecipe.ingredients.forEach((ingredient) => {

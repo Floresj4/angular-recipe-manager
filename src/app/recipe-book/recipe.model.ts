@@ -14,4 +14,8 @@ export class Recipe {
 	  this.imagePath = imagePath;
     this.ingredients = ingredients;
   }
+
+  static emptyRecipe() {
+    return new Recipe(-1, "", "", "", []);
+  }
 }
