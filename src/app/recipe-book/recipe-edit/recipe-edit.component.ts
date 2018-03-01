@@ -59,7 +59,7 @@ export class RecipeEditComponent implements OnInit {
         'name': new FormControl(null, Validators.required),
         'amount': new FormControl(null, Validators.required)
       })
-    )
+    );
   }
 
   onCancel() {

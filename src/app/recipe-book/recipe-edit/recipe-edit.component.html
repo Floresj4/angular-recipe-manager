@@ -77,12 +77,14 @@
       </div>
 
       <div class="form-group">
+        <hr/>
+
         <button type='submit'
                 [disabled]="!recipeEditForm.valid"
                 class="btn btn-success">Save</button>
 
         <button type="button"
-            class="btn btn-success"
+            class="btn btn-default"
             (click)="onAddIngredient()">Add Ingredient</button>
 
         <button type="button"
