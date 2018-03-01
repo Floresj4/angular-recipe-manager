@@ -217,8 +217,8 @@ AppModule = __decorate([
         ],
         imports: [
             __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__["a" /* BrowserModule */],
-            __WEBPACK_IMPORTED_MODULE_17__angular_forms__["c" /* FormsModule */],
-            __WEBPACK_IMPORTED_MODULE_17__angular_forms__["e" /* ReactiveFormsModule */],
+            __WEBPACK_IMPORTED_MODULE_17__angular_forms__["d" /* FormsModule */],
+            __WEBPACK_IMPORTED_MODULE_17__angular_forms__["f" /* ReactiveFormsModule */],
             __WEBPACK_IMPORTED_MODULE_2__app_routing_module__["a" /* AppRoutingModule */]
         ],
         providers: [__WEBPACK_IMPORTED_MODULE_11__recipe_book_recipe_service__["a" /* RecipeService */], __WEBPACK_IMPORTED_MODULE_12__recipe_book_recipe_resolver_service__["a" /* RecipeResolver */]],
@@ -376,7 +376,7 @@ exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-b
 
 
 // module
-exports.push([module.i, ".img-recipe-edit {\r\n  border:1px solid #ddd;\r\n}\r\n", ""]);
+exports.push([module.i, ".img-recipe-edit {\r\n  border:1px solid #ddd;\r\n}\r\n\r\n.image-path-hidden {\r\n  display: none;\r\n}\r\n", ""]);
 
 // exports
 
@@ -389,7 +389,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/recipe-book/recipe-edit/recipe-edit.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"row\">\r\n  <h3>{{ editMode ? 'Edit' : 'New' }} Recipe</h3>\r\n</div>\r\n\r\n<div class=\"row\">\r\n  <div class=\"col-xs-12 form-group\">\r\n    <img\r\n        class=\"img-responsive img-recipe-edit\"\r\n        [src]=\"currentRecipe.imagePath\"\r\n         alt=\"{{currentRecipe.name}}\" />\r\n  </div>\r\n</div>\r\n\r\n<div class=\"row\">\r\n  <div class=\"col-xs-12\">\r\n\r\n    <form [formGroup]=\"recipeEditForm\" (ngSubmit)=\"onSubmit()\">\r\n\r\n      <div class=\"form-group\">\r\n        <label for=\"recipeName\">Name</label>\r\n        <input type='text'\r\n               id='recipeName'\r\n               class=\"form-control\"\r\n               name=\"recipeName\"\r\n               [ngModel]=\"currentRecipe.name\"\r\n               formControlName=\"recipeName\"\r\n               placeholder=\"Recipe name\"\r\n               required>\r\n      </div>\r\n\r\n      <div class=\"form-group\">\r\n        <label for=\"imagePath\">Image Path</label>\r\n        <input type='text'\r\n          id=\"imagePath\"\r\n          name=\"imagePath\"\r\n          [ngModel]=\"currentRecipe.imagePath\"\r\n          formControlName=\"imagePath\"\r\n          class=\"form-control\"\r\n          placeholder=\"Image URL\"\r\n          required>\r\n      </div>\r\n\r\n      <div class=\"form-group\">\r\n        <label for=\"recipeDescription\">Description</label>\r\n        <input type=\"text\"\r\n          id=\"recipeDescription\"\r\n          name=\"recipeDescription\"\r\n          [ngModel]=\"currentRecipe.description\"\r\n          formControlName=\"recipeDescription\"\r\n          class=\"form-control\"\r\n          placeholder=\"About this recipe...\"\r\n          required>\r\n      </div>\r\n\r\n      <div class=\"form-group\">\r\n        <button type='submit'\r\n            class=\"btn btn-success\">Save</button>\r\n\r\n        <button type=\"button\"\r\n            class=\"btn btn-danger\"\r\n            (click)=\"onCancel()\">Cancel</button>\r\n      </div>\r\n\r\n    </form>\r\n\r\n  </div>\r\n</div>\r\n"
+module.exports = "<div class=\"row\">\r\n  <h3>{{ editMode ? 'Edit' : 'New' }} Recipe</h3>\r\n</div>\r\n\r\n<!--<div class=\"row\"-->\r\n  <!--[class]=\"editMode ? 'image-path-visible' : ''\">-->\r\n  <!--<div class=\"col-xs-12 form-group\">-->\r\n    <!--<img-->\r\n        <!--class=\"img-responsive img-recipe-edit\"-->\r\n        <!--[src]=\"currentRecipe.imagePath\"-->\r\n         <!--alt=\"{{currentRecipe.name}}\" />-->\r\n  <!--</div>-->\r\n<!--</div>-->\r\n\r\n<div class=\"row\">\r\n  <div class=\"col-xs-12\">\r\n\r\n    <form [formGroup]=\"recipeEditForm\" (ngSubmit)=\"onSubmit()\">\r\n\r\n      <div class=\"form-group\">\r\n        <label for=\"recipeName\">Name</label>\r\n        <input type='text'\r\n               id='recipeName'\r\n               class=\"form-control\"\r\n               name=\"recipeName\"\r\n               formControlName=\"recipeName\"\r\n               placeholder=\"Recipe name\"\r\n               required>\r\n      </div>\r\n\r\n      <div class=\"form-group\">\r\n        <label for=\"imagePath\">Image Path</label>\r\n        <input type='text'\r\n          id=\"imagePath\"\r\n          name=\"imagePath\"\r\n          formControlName=\"imagePath\"\r\n          class=\"form-control\"\r\n          placeholder=\"Image URL\"\r\n          required>\r\n      </div>\r\n\r\n      <div class=\"form-group\">\r\n        <label for=\"recipeDescription\">Description</label>\r\n        <textarea\r\n          rows=\"6\"\r\n          id=\"recipeDescription\"\r\n          name=\"recipeDescription\"\r\n          formControlName=\"recipeDescription\"\r\n          class=\"form-control\"\r\n          placeholder=\"About this recipe...\"\r\n          required></textarea>\r\n      </div>\r\n\r\n      <h4>Ingredients</h4>\r\n\r\n      <div class=\"row\" formArrayName=\"ingredients\" *ngFor=\"let ing of recipeEditForm.get('ingredients').controls; let i = index\">\r\n        <div [formGroupName]=\"i\">\r\n\r\n          <div class=\"col-xs-8 form-group\">\r\n            <input type=\"text\"\r\n                class=\"form-control\"\r\n                formControlName=\"name\">\r\n          </div>\r\n\r\n          <div class=\"col-xs-3 form-group\">\r\n            <input type=\"number\"\r\n                class=\"form-control\"\r\n                formControlName=\"amount\">\r\n          </div>\r\n\r\n          <div class=\"col-xs-1 form-group\">\r\n            <button type=\"button\"\r\n                    class=\"btn btn-danger\">x</button>\r\n          </div>\r\n\r\n        </div>\r\n      </div>\r\n\r\n      <div class=\"form-group\">\r\n        <button type='submit'\r\n                [disabled]=\"!recipeEditForm.valid\"\r\n                class=\"btn btn-success\">Save</button>\r\n\r\n        <button type=\"button\"\r\n            class=\"btn btn-success\"\r\n            (click)=\"onAddIngredient()\">Add Ingredient</button>\r\n\r\n        <button type=\"button\"\r\n                class=\"btn btn-danger\"\r\n                (click)=\"onCancel()\">Cancel</button>\r\n      </div>\r\n\r\n    </form>\r\n\r\n  </div>\r\n</div>\r\n"
 
 /***/ }),
 
@@ -426,30 +426,46 @@ var RecipeEditComponent = (function () {
     }
     RecipeEditComponent.prototype.ngOnInit = function () {
         var _this = this;
-        this.recipeEditForm = new __WEBPACK_IMPORTED_MODULE_4__angular_forms__["b" /* FormGroup */]({
-            'recipeName': new __WEBPACK_IMPORTED_MODULE_4__angular_forms__["a" /* FormControl */](null, __WEBPACK_IMPORTED_MODULE_4__angular_forms__["f" /* Validators */].required),
-            'imagePath': new __WEBPACK_IMPORTED_MODULE_4__angular_forms__["a" /* FormControl */](null, __WEBPACK_IMPORTED_MODULE_4__angular_forms__["f" /* Validators */].required),
-            'recipeDescription': new __WEBPACK_IMPORTED_MODULE_4__angular_forms__["a" /* FormControl */](null, __WEBPACK_IMPORTED_MODULE_4__angular_forms__["f" /* Validators */].required)
-        });
         //custom observables will need to be clean-up ngOnDestroy or similar
         this.route.params.subscribe(function (params) {
             _this.id = +params['id'];
             _this.editMode = params['id'] != null;
-            if (_this.editMode) {
-                _this.currentRecipe = _this.recipeService.getRecipe(_this.id);
-                console.log("editing recipe " + JSON.stringify(_this.currentRecipe));
-            }
-            else {
-                _this.currentRecipe = new __WEBPACK_IMPORTED_MODULE_3__recipe_model__["a" /* Recipe */](-1, "", "", "", []);
-            }
+            _this.initForm();
         });
+    };
+    RecipeEditComponent.prototype.initForm = function () {
+        var currentRecipe = (this.editMode) ?
+            this.recipeService.getRecipe(this.id)
+            : new __WEBPACK_IMPORTED_MODULE_3__recipe_model__["a" /* Recipe */](-1, "", "", "", []);
+        var ingredientsData = new __WEBPACK_IMPORTED_MODULE_4__angular_forms__["a" /* FormArray */]([]);
+        currentRecipe.ingredients.forEach(function (ingredient) {
+            ingredientsData.push(new __WEBPACK_IMPORTED_MODULE_4__angular_forms__["c" /* FormGroup */]({
+                'name': new __WEBPACK_IMPORTED_MODULE_4__angular_forms__["b" /* FormControl */](ingredient.name, __WEBPACK_IMPORTED_MODULE_4__angular_forms__["g" /* Validators */].required),
+                'amount': new __WEBPACK_IMPORTED_MODULE_4__angular_forms__["b" /* FormControl */](ingredient.amount, __WEBPACK_IMPORTED_MODULE_4__angular_forms__["g" /* Validators */].required)
+            }));
+        });
+        this.recipeEditForm = new __WEBPACK_IMPORTED_MODULE_4__angular_forms__["c" /* FormGroup */]({
+            'recipeName': new __WEBPACK_IMPORTED_MODULE_4__angular_forms__["b" /* FormControl */](currentRecipe.name, __WEBPACK_IMPORTED_MODULE_4__angular_forms__["g" /* Validators */].required),
+            'imagePath': new __WEBPACK_IMPORTED_MODULE_4__angular_forms__["b" /* FormControl */](currentRecipe.imagePath),
+            'recipeDescription': new __WEBPACK_IMPORTED_MODULE_4__angular_forms__["b" /* FormControl */](currentRecipe.description, __WEBPACK_IMPORTED_MODULE_4__angular_forms__["g" /* Validators */].required),
+            'ingredients': ingredientsData
+        });
+    };
+    RecipeEditComponent.prototype.onAddIngredient = function () {
+        this.recipeEditForm.get('ingredients').push(new __WEBPACK_IMPORTED_MODULE_4__angular_forms__["c" /* FormGroup */]({
+            'name': new __WEBPACK_IMPORTED_MODULE_4__angular_forms__["b" /* FormControl */](null, __WEBPACK_IMPORTED_MODULE_4__angular_forms__["g" /* Validators */].required),
+            'amount': new __WEBPACK_IMPORTED_MODULE_4__angular_forms__["b" /* FormControl */](null, __WEBPACK_IMPORTED_MODULE_4__angular_forms__["g" /* Validators */].required)
+        }));
     };
     RecipeEditComponent.prototype.onCancel = function () {
         this.recipeEditForm.reset();
         this.router.navigate(['../'], { 'relativeTo': this.route });
     };
     RecipeEditComponent.prototype.onSubmit = function () {
-        console.log(this.recipeEditForm.value);
+        if (!this.editMode) {
+            var submitRecipe = new __WEBPACK_IMPORTED_MODULE_3__recipe_model__["a" /* Recipe */](-1, this.recipeEditForm.value.name, this.recipeEditForm.value.description, this.recipeEditForm.value.imagePath, null);
+            this.recipeService.addRecipe(submitRecipe);
+        }
     };
     return RecipeEditComponent;
 }());
@@ -759,6 +775,9 @@ var RecipeService = (function () {
     }
     RecipeService.prototype.ngOnInit = function () {
     };
+    RecipeService.prototype.addRecipe = function (recipe) {
+        this.recipes.push(recipe);
+    };
     RecipeService.prototype.getRecipes = function () {
         //return a copy of the array
         return this.recipes.slice();
@@ -1050,7 +1069,7 @@ var ShoppingListEditorComponent = (function () {
 }());
 __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_16" /* ViewChild */])('shoppingListForm'),
-    __metadata("design:type", typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_3__angular_forms__["d" /* NgForm */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__angular_forms__["d" /* NgForm */]) === "function" && _a || Object)
+    __metadata("design:type", typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_3__angular_forms__["e" /* NgForm */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__angular_forms__["e" /* NgForm */]) === "function" && _a || Object)
 ], ShoppingListEditorComponent.prototype, "shoppingListForm", void 0);
 ShoppingListEditorComponent = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["o" /* Component */])({
