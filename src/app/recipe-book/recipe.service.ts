@@ -40,6 +40,10 @@ export class RecipeService implements OnInit {
 	  this.recipes.push(recipe);
   }
 
+  updateRecipe(index: number, recipe: Recipe) {
+	  this.recipes[index] = recipe;
+  }
+
 	getRecipes() {
 		//return a copy of the array
 		return this.recipes.slice();

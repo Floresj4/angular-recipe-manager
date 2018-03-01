@@ -1,5 +1,7 @@
 <div class="row">
-  <h3>{{ editMode ? 'Edit' : 'New' }} Recipe</h3>
+  <div class="col-xs-12">
+    <h3>{{ editMode ? 'Edit' : 'New' }} Recipe</h3>
+  </div>
 </div>
 
 <!--<div class="row"-->
@@ -13,11 +15,10 @@
 <!--</div>-->
 
 <div class="row">
-  <div class="col-xs-12">
 
     <form [formGroup]="recipeEditForm" (ngSubmit)="onSubmit()">
 
-      <div class="form-group">
+      <div class="form-group col-xs-12">
         <label for="recipeName">Name</label>
         <input type='text'
                id='recipeName'
@@ -28,7 +29,7 @@
                required>
       </div>
 
-      <div class="form-group">
+      <div class="form-group col-xs-12">
         <label for="imagePath">Image Path</label>
         <input type='text'
           id="imagePath"
@@ -39,7 +40,7 @@
           required>
       </div>
 
-      <div class="form-group">
+      <div class="form-group col-xs-12">
         <label for="recipeDescription">Description</label>
         <textarea
           rows="6"
@@ -51,9 +52,11 @@
           required></textarea>
       </div>
 
-      <h4>Ingredients</h4>
+      <div class="col-xs-12">
+        <h4>Ingredients</h4>
+      </div>
 
-      <div class="row" formArrayName="ingredients" *ngFor="let ing of recipeEditForm.get('ingredients').controls; let i = index">
+      <div class="" formArrayName="ingredients" *ngFor="let ing of recipeEditForm.get('ingredients').controls; let i = index">
         <div [formGroupName]="i">
 
           <div class="col-xs-8 form-group">
@@ -76,9 +79,7 @@
         </div>
       </div>
 
-      <div class="form-group">
-        <hr/>
-
+      <div class="form-group col-xs-12">
         <button type='submit'
                 [disabled]="!recipeEditForm.valid"
                 class="btn btn-success">Save</button>
@@ -94,5 +95,5 @@
 
     </form>
 
-  </div>
+
 </div>
