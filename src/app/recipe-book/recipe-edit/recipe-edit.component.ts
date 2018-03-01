@@ -41,13 +41,14 @@ export class RecipeEditComponent implements OnInit {
     currentRecipe.ingredients.forEach((ingredient) => {
       ingredientsData.push(new FormGroup({
         'name': new FormControl(ingredient.name, Validators.required),
-        'amount': new FormControl(ingredient.amount, Validators.required)
+        'amount': new FormControl(ingredient.amount, [Validators.required,
+          Validators.pattern(/^[1-9]+[0-9]*$/))
       }))
     });
 
     this.recipeEditForm = new FormGroup({
       'recipeName': new FormControl(currentRecipe.name, Validators.required),
-      'imagePath': new FormControl(currentRecipe.imagePath),
+      'imagePath': new FormControl(currentRecipe.imagePath, Validators.required),
       'recipeDescription': new FormControl(currentRecipe.description, Validators.required),
       'ingredients': ingredientsData
     });
@@ -57,7 +58,8 @@ export class RecipeEditComponent implements OnInit {
     (<FormArray>this.recipeEditForm.get('ingredients')).push(
       new FormGroup({
         'name': new FormControl(null, Validators.required),
-        'amount': new FormControl(null, Validators.required)
+        'amount': new FormControl(null, [Validators.required,
+          Validators.pattern(/^[1-9]+[0-9]*$/)])
       })
     );
   }
