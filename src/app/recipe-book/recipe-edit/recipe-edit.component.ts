@@ -73,22 +73,18 @@ export class RecipeEditComponent implements OnInit {
 
   onSubmit() {
 
-    // populate the ingredients from the form
-    let ingredients: Ingredient[] = null;
-    this.recipeEditForm.get('ingredients').value.forEach((ing) => {
-      ingredients.push(new Ingredient(ing.name, ing.amount));
-    });
-
     //build a recipe to submit
     var submitRecipe: Recipe = new Recipe(-1,
       this.recipeEditForm.value.name,
       this.recipeEditForm.value.description,
       this.recipeEditForm.value.imagePath,
-      ingredients);
+      this.recipeEditForm.value.ingredients);
+
+    console.log(JSON.stringify(submitRecipe));
 
     //add or update depending on the mode
     if(this.editMode) {
-      this.recipeService.updateRecipe(0, submitRecipe);
+      this.recipeService.updateRecipe(this.id, submitRecipe);
     } else {
       this.recipeService.addRecipe(submitRecipe);
     }
