@@ -74,9 +74,10 @@ export class RecipeEditComponent implements OnInit {
   onSubmit() {
 
     //build a recipe to submit
-    var submitRecipe: Recipe = new Recipe(-1,
-      this.recipeEditForm.value.name,
-      this.recipeEditForm.value.description,
+    var submitRecipe: Recipe = new Recipe(
+      this.id,
+      this.recipeEditForm.value.recipeName,
+      this.recipeEditForm.value.recipeDescription,
       this.recipeEditForm.value.imagePath,
       this.recipeEditForm.value.ingredients);
 
@@ -89,6 +90,7 @@ export class RecipeEditComponent implements OnInit {
       this.recipeService.addRecipe(submitRecipe);
     }
 
+    this.editMode = false;
     this.recipeEditForm.reset();
   }
 }
