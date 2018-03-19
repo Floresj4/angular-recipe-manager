@@ -297,7 +297,7 @@ exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-b
 
 
 // module
-exports.push([module.i, "", ""]);
+exports.push([module.i, ".menu-btn {\r\n  cursor: pointer;\r\n}\r\n", ""]);
 
 // exports
 
@@ -310,7 +310,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/recipe-book/recipe-detail/recipe-detail.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class='row'>\r\n\t<div class='col-md-12'>\r\n\t\t<h3>Recipe Details</h3>\r\n\r\n\t\t<div class='btn-group'\r\n\t\t\tappDropdown>\r\n\t\t\t<button type='button' class='btn btn-primary dropdown-toggle'>\r\n\t\t\t\tManage Recipe <span class='caret'></span>\r\n\t\t\t</button>\r\n\r\n\t\t\t<ul class='dropdown-menu'>\r\n\t\t\t\t<li><a style='cursor: pointer'\r\n\t\t\t\t\t(click)=\"onToShoppingList()\">To Shopping List</a></li>\r\n\t\t\t\t<li><a [routerLink]=\"['edit']\">Edit Recipe</a></li>\r\n\t\t\t\t<li><a href='#'>Delete Recipe</a></li>\r\n\t\t\t</ul>\r\n\t\t</div>\r\n\t</div>\r\n</div>\r\n\r\n\r\n<div class='row'>\r\n\t<div class='col-md-12'>\r\n\t\t<h2>{{recipe.name}}</h2>\r\n\t\t<img [src]=\"recipe.imagePath\" alt=\"{{ recipe.name }}\"\r\n\t\t\t class='img-responsive'\r\n\t\t\t style='max-height:300px'/>\r\n\t</div>\r\n</div>\r\n\r\n<div class='row'>\r\n\t<div class='col-md-12'>\r\n\t\t<p>{{recipe.description}}</p>\r\n\t</div>\r\n</div>\r\n\r\n<div class='row'>\r\n\t<div class='col-md-12'>\r\n\t\t<h4>Ingredients</h4>\r\n\t\t<ul class=\"list-group\">\r\n\t\t\t<li class='list-group-item' *ngFor=\"let i of recipe.ingredients\">\r\n\t\t\t\t{{ i.name }}, {{ i.amount }}\r\n\t\t\t</li>\r\n\t\t</ul>\r\n\t</div>\r\n</div>\r\n"
+module.exports = "<div class='row'>\r\n\t<div class='col-md-12'>\r\n\t\t<h3>Recipe Details</h3>\r\n\r\n\t\t<div class='btn-group'\r\n\t\t\tappDropdown>\r\n\t\t\t<button type='button' class='btn btn-primary dropdown-toggle'>\r\n\t\t\t\tManage Recipe <span class='caret'></span>\r\n\t\t\t</button>\r\n\r\n\t\t\t<ul class='dropdown-menu'>\r\n\t\t\t\t<li><a style='cursor: pointer'\r\n\t\t\t\t\t(click)=\"onToShoppingList()\">To Shopping List</a></li>\r\n\t\t\t\t<li><a [routerLink]=\"['edit']\">Edit Recipe</a></li>\r\n\t\t\t\t<li><a class='menu-btn' (click)=\"onDelete()\">Delete Recipe</a></li>\r\n\t\t\t</ul>\r\n\t\t</div>\r\n\t</div>\r\n</div>\r\n\r\n\r\n<div class='row'>\r\n\t<div class='col-md-12'>\r\n\t\t<h2>{{recipe.name}}</h2>\r\n\t\t<img [src]=\"recipe.imagePath\" alt=\"{{ recipe.name }}\"\r\n\t\t\t class='img-responsive'\r\n\t\t\t style='max-height:300px'/>\r\n\t</div>\r\n</div>\r\n\r\n<div class='row'>\r\n\t<div class='col-md-12'>\r\n\t\t<p>{{recipe.description}}</p>\r\n\t</div>\r\n</div>\r\n\r\n<div class='row'>\r\n\t<div class='col-md-12'>\r\n\t\t<h4>Ingredients</h4>\r\n\t\t<ul class=\"list-group\">\r\n\t\t\t<li class='list-group-item' *ngFor=\"let i of recipe.ingredients\">\r\n\t\t\t\t{{ i.name }}, {{ i.amount }}\r\n\t\t\t</li>\r\n\t\t</ul>\r\n\t</div>\r\n</div>\r\n"
 
 /***/ }),
 
@@ -337,9 +337,10 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 var RecipeDetailComponent = (function () {
-    function RecipeDetailComponent(shoppingservice, recipeService, route) {
+    function RecipeDetailComponent(shoppingservice, recipeService, router, route) {
         this.shoppingservice = shoppingservice;
         this.recipeService = recipeService;
+        this.router = router;
         this.route = route;
     }
     RecipeDetailComponent.prototype.ngOnInit = function () {
@@ -348,6 +349,11 @@ var RecipeDetailComponent = (function () {
         this.route.params.subscribe(function (data) {
             _this.recipe = _this.recipeService.getRecipe(+data['id']);
         });
+    };
+    RecipeDetailComponent.prototype.onDelete = function () {
+        var id = +this.route.snapshot.params['id'];
+        this.recipeService.deleteRecipe(id);
+        this.router.navigate(['../'], { relativeTo: this.route });
     };
     RecipeDetailComponent.prototype.onToShoppingList = function () {
         var ingredients = this.recipe.ingredients.slice();
@@ -361,10 +367,10 @@ RecipeDetailComponent = __decorate([
         template: __webpack_require__("../../../../../src/app/recipe-book/recipe-detail/recipe-detail.component.html"),
         styles: [__webpack_require__("../../../../../src/app/recipe-book/recipe-detail/recipe-detail.component.css")]
     }),
-    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_2__shopping_shopping_service__["a" /* ShoppingService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__shopping_shopping_service__["a" /* ShoppingService */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_3__recipe_service__["a" /* RecipeService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__recipe_service__["a" /* RecipeService */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* ActivatedRoute */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* ActivatedRoute */]) === "function" && _c || Object])
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_2__shopping_shopping_service__["a" /* ShoppingService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__shopping_shopping_service__["a" /* ShoppingService */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_3__recipe_service__["a" /* RecipeService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__recipe_service__["a" /* RecipeService */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* Router */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* Router */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* ActivatedRoute */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* ActivatedRoute */]) === "function" && _d || Object])
 ], RecipeDetailComponent);
 
-var _a, _b, _c;
+var _a, _b, _c, _d;
 //# sourceMappingURL=recipe-detail.component.js.map
 
 /***/ }),
@@ -390,7 +396,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/recipe-book/recipe-edit/recipe-edit.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"row\">\r\n  <div class=\"col-xs-12\">\r\n    <h3>{{ editMode ? 'Edit' : 'New' }} Recipe</h3>\r\n  </div>\r\n</div>\r\n\r\n<!--<div class=\"row\"-->\r\n  <!--[class]=\"editMode ? 'image-path-visible' : ''\">-->\r\n  <!--<div class=\"col-xs-12 form-group\">-->\r\n    <!--<img-->\r\n        <!--class=\"img-responsive img-recipe-edit\"-->\r\n        <!--[src]=\"currentRecipe.imagePath\"-->\r\n         <!--alt=\"{{currentRecipe.name}}\" />-->\r\n  <!--</div>-->\r\n<!--</div>-->\r\n\r\n<div class=\"row\">\r\n\r\n    <form [formGroup]=\"recipeEditForm\" (ngSubmit)=\"onSubmit()\">\r\n\r\n      <div class=\"form-group col-xs-12\">\r\n        <label for=\"recipeName\">Name</label>\r\n        <input type='text'\r\n               id='recipeName'\r\n               class=\"form-control\"\r\n               name=\"recipeName\"\r\n               formControlName=\"recipeName\"\r\n               placeholder=\"Recipe name\"\r\n               required>\r\n      </div>\r\n\r\n      <div class=\"form-group col-xs-12\">\r\n        <label for=\"imagePath\">Image Path</label>\r\n        <input type='text'\r\n          id=\"imagePath\"\r\n          name=\"imagePath\"\r\n          formControlName=\"imagePath\"\r\n          class=\"form-control\"\r\n          placeholder=\"Image URL\"\r\n          required>\r\n      </div>\r\n\r\n      <div class=\"form-group col-xs-12\">\r\n        <label for=\"recipeDescription\">Description</label>\r\n        <textarea\r\n          rows=\"6\"\r\n          id=\"recipeDescription\"\r\n          name=\"recipeDescription\"\r\n          formControlName=\"recipeDescription\"\r\n          class=\"form-control\"\r\n          placeholder=\"About this recipe...\"\r\n          required></textarea>\r\n      </div>\r\n\r\n      <div class=\"col-xs-12\">\r\n        <h4>Ingredients</h4>\r\n      </div>\r\n\r\n      <div class=\"\" formArrayName=\"ingredients\" *ngFor=\"let ing of recipeEditForm.get('ingredients').controls; let i = index\">\r\n        <div [formGroupName]=\"i\">\r\n\r\n          <div class=\"col-xs-8 form-group\">\r\n            <input type=\"text\"\r\n                class=\"form-control\"\r\n                formControlName=\"name\">\r\n          </div>\r\n\r\n          <div class=\"col-xs-3 form-group\">\r\n            <input type=\"number\"\r\n                class=\"form-control\"\r\n                formControlName=\"amount\">\r\n          </div>\r\n\r\n          <div class=\"col-xs-1 form-group\">\r\n            <button type=\"button\"\r\n                    class=\"btn btn-danger\">x</button>\r\n          </div>\r\n\r\n        </div>\r\n      </div>\r\n\r\n      <div class=\"form-group col-xs-12\">\r\n        <button type='submit'\r\n                [disabled]=\"!recipeEditForm.valid\"\r\n                class=\"btn btn-success\">Save</button>\r\n\r\n        <button type=\"button\"\r\n            class=\"btn btn-default\"\r\n            (click)=\"onAddIngredient()\">Add Ingredient</button>\r\n\r\n        <button type=\"button\"\r\n                class=\"btn btn-danger\"\r\n                (click)=\"onCancel()\">Cancel</button>\r\n      </div>\r\n\r\n    </form>\r\n\r\n\r\n</div>\r\n"
+module.exports = "<div class=\"row\">\r\n  <div class=\"col-xs-12\">\r\n    <h3>{{ editMode ? 'Edit' : 'New' }} Recipe</h3>\r\n  </div>\r\n</div>\r\n\r\n<!--<div class=\"row\"-->\r\n  <!--[class]=\"editMode ? 'image-path-visible' : ''\">-->\r\n  <!--<div class=\"col-xs-12 form-group\">-->\r\n    <!--<img-->\r\n        <!--class=\"img-responsive img-recipe-edit\"-->\r\n        <!--[src]=\"currentRecipe.imagePath\"-->\r\n         <!--alt=\"{{currentRecipe.name}}\" />-->\r\n  <!--</div>-->\r\n<!--</div>-->\r\n\r\n<div class=\"row\">\r\n\r\n    <form [formGroup]=\"recipeEditForm\" (ngSubmit)=\"onSubmit()\">\r\n\r\n      <div class=\"form-group col-xs-12\">\r\n        <img [src]=\"imagePath.value\" class=\"img-responsive\" >\r\n      </div>\r\n\r\n      <div class=\"form-group col-xs-12\">\r\n        <label for=\"recipeName\">Name</label>\r\n        <input type='text'\r\n               id='recipeName'\r\n               class=\"form-control\"\r\n               name=\"recipeName\"\r\n               formControlName=\"recipeName\"\r\n               placeholder=\"Recipe name\"\r\n               required>\r\n      </div>\r\n\r\n      <div class=\"form-group col-xs-12\">\r\n        <label for=\"imagePath\">Image Path</label>\r\n        <input type='text'\r\n          id=\"imagePath\"\r\n          name=\"imagePath\"\r\n          formControlName=\"imagePath\"\r\n          class=\"form-control\"\r\n          placeholder=\"Image URL\"\r\n          required\r\n          #imagePath>\r\n      </div>\r\n\r\n      <div class=\"form-group col-xs-12\">\r\n        <label for=\"recipeDescription\">Description</label>\r\n        <textarea\r\n          rows=\"6\"\r\n          id=\"recipeDescription\"\r\n          name=\"recipeDescription\"\r\n          formControlName=\"recipeDescription\"\r\n          class=\"form-control\"\r\n          placeholder=\"About this recipe...\"\r\n          required></textarea>\r\n      </div>\r\n\r\n      <div class=\"col-xs-12\">\r\n        <h4>Ingredients</h4>\r\n      </div>\r\n\r\n      <div class=\"\" formArrayName=\"ingredients\" *ngFor=\"let ing of recipeEditForm.get('ingredients').controls; let i = index\">\r\n        <div [formGroupName]=\"i\">\r\n\r\n          <div class=\"col-xs-8 form-group\">\r\n            <input type=\"text\"\r\n                class=\"form-control\"\r\n                formControlName=\"name\">\r\n          </div>\r\n\r\n          <div class=\"col-xs-3 form-group\">\r\n            <input type=\"number\"\r\n                class=\"form-control\"\r\n                formControlName=\"amount\">\r\n          </div>\r\n\r\n          <div class=\"col-xs-1 form-group\">\r\n            <button type=\"button\"\r\n                    class=\"btn btn-danger\">x</button>\r\n          </div>\r\n\r\n        </div>\r\n      </div>\r\n\r\n      <div class=\"form-group col-xs-12\">\r\n        <button type='submit'\r\n                [disabled]=\"!recipeEditForm.valid\"\r\n                class=\"btn btn-success\">Save</button>\r\n\r\n        <button type=\"button\"\r\n            class=\"btn btn-default\"\r\n            (click)=\"onAddIngredient()\">Add Ingredient</button>\r\n\r\n        <button type=\"button\"\r\n                class=\"btn btn-danger\"\r\n                (click)=\"onCancel()\">Cancel</button>\r\n      </div>\r\n\r\n    </form>\r\n\r\n\r\n</div>\r\n"
 
 /***/ }),
 
@@ -467,7 +473,6 @@ var RecipeEditComponent = (function () {
     RecipeEditComponent.prototype.onSubmit = function () {
         //build a recipe to submit
         var submitRecipe = new __WEBPACK_IMPORTED_MODULE_3__recipe_model__["a" /* Recipe */](this.id, this.recipeEditForm.value.recipeName, this.recipeEditForm.value.recipeDescription, this.recipeEditForm.value.imagePath, this.recipeEditForm.value.ingredients);
-        console.log(JSON.stringify(submitRecipe));
         //add or update depending on the mode
         if (this.editMode) {
             this.recipeService.updateRecipe(this.id, submitRecipe);
@@ -477,6 +482,7 @@ var RecipeEditComponent = (function () {
         }
         this.editMode = false;
         this.recipeEditForm.reset();
+        this.router.navigate(['../'], { 'relativeTo': this.route });
     };
     return RecipeEditComponent;
 }());
@@ -802,12 +808,16 @@ var RecipeService = (function () {
     RecipeService.prototype.ngOnInit = function () {
     };
     RecipeService.prototype.addRecipe = function (recipe) {
+        recipe.id = this.recipes.length;
         this.recipes.push(recipe);
+        this.recipesChanged.next(this.recipes.slice());
+    };
+    RecipeService.prototype.deleteRecipe = function (id) {
+        this.recipes.splice(id, 1);
         this.recipesChanged.next(this.recipes.slice());
     };
     RecipeService.prototype.updateRecipe = function (index, recipe) {
         this.recipes[index] = recipe;
-        console.log(this.recipes);
         this.recipesChanged.next(this.recipes.slice());
     };
     RecipeService.prototype.getRecipes = function () {
