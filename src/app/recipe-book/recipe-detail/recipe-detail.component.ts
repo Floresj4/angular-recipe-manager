@@ -27,7 +27,7 @@ export class RecipeDetailComponent implements OnInit {
   }
 
   onDelete() {
-    let id = this.route.snapshot.params['id'];
+    let id = +this.route.snapshot.params['id'];
     this.recipeService.deleteRecipe(id);
     this.router.navigate(['../'], { relativeTo: this.route });
   }
