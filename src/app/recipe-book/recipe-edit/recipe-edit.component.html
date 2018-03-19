@@ -19,6 +19,10 @@
     <form [formGroup]="recipeEditForm" (ngSubmit)="onSubmit()">
 
       <div class="form-group col-xs-12">
+        <img [src]="imagePath.value" class="img-responsive" >
+      </div>
+
+      <div class="form-group col-xs-12">
         <label for="recipeName">Name</label>
         <input type='text'
                id='recipeName'
@@ -37,7 +41,8 @@
           formControlName="imagePath"
           class="form-control"
           placeholder="Image URL"
-          required>
+          required
+          #imagePath>
       </div>
 
       <div class="form-group col-xs-12">
