@@ -46,7 +46,6 @@ export class RecipeService implements OnInit {
 
   updateRecipe(index: number, recipe: Recipe) {
 	  this.recipes[index] = recipe;
-	  console.log(this.recipes);
     this.recipesChanged.next(this.recipes.slice());
   }
 
