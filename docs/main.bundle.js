@@ -26,10 +26,9 @@ webpackEmptyAsyncContext.id = "../../../../../src/$$_gendir lazy recursive";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_router__ = __webpack_require__("../../../router/@angular/router.es5.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__recipe_book_recipes_recipes_component__ = __webpack_require__("../../../../../src/app/recipe-book/recipes/recipes.component.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__recipe_book_recipe_detail_recipe_detail_component__ = __webpack_require__("../../../../../src/app/recipe-book/recipe-detail/recipe-detail.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__recipe_book_recipe_resolver_service__ = __webpack_require__("../../../../../src/app/recipe-book/recipe-resolver.service.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__shopping_shopping_list_shopping_list_component__ = __webpack_require__("../../../../../src/app/shopping/shopping-list/shopping-list.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__recipe_book_recipe_start_recipe_start_component__ = __webpack_require__("../../../../../src/app/recipe-book/recipe-start/recipe-start.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__recipe_book_recipe_edit_recipe_edit_component__ = __webpack_require__("../../../../../src/app/recipe-book/recipe-edit/recipe-edit.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__shopping_shopping_list_shopping_list_component__ = __webpack_require__("../../../../../src/app/shopping/shopping-list/shopping-list.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__recipe_book_recipe_start_recipe_start_component__ = __webpack_require__("../../../../../src/app/recipe-book/recipe-start/recipe-start.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__recipe_book_recipe_edit_recipe_edit_component__ = __webpack_require__("../../../../../src/app/recipe-book/recipe-edit/recipe-edit.component.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -43,16 +42,15 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 
 
 
-
 var appRoutes = [
     { path: '', redirectTo: '/recipes', pathMatch: 'full' },
     { path: 'recipes', component: __WEBPACK_IMPORTED_MODULE_2__recipe_book_recipes_recipes_component__["a" /* RecipesComponent */], children: [
-            { path: '', component: __WEBPACK_IMPORTED_MODULE_6__recipe_book_recipe_start_recipe_start_component__["a" /* RecipeStartComponent */], },
-            { path: 'new', component: __WEBPACK_IMPORTED_MODULE_7__recipe_book_recipe_edit_recipe_edit_component__["a" /* RecipeEditComponent */] },
-            { path: ':id', component: __WEBPACK_IMPORTED_MODULE_3__recipe_book_recipe_detail_recipe_detail_component__["a" /* RecipeDetailComponent */], resolve: { recipe: __WEBPACK_IMPORTED_MODULE_4__recipe_book_recipe_resolver_service__["a" /* RecipeResolver */] } },
-            { path: ':id/edit', component: __WEBPACK_IMPORTED_MODULE_7__recipe_book_recipe_edit_recipe_edit_component__["a" /* RecipeEditComponent */] }
+            { path: '', component: __WEBPACK_IMPORTED_MODULE_5__recipe_book_recipe_start_recipe_start_component__["a" /* RecipeStartComponent */], },
+            { path: 'new', component: __WEBPACK_IMPORTED_MODULE_6__recipe_book_recipe_edit_recipe_edit_component__["a" /* RecipeEditComponent */] },
+            { path: ':id', component: __WEBPACK_IMPORTED_MODULE_3__recipe_book_recipe_detail_recipe_detail_component__["a" /* RecipeDetailComponent */] },
+            { path: ':id/edit', component: __WEBPACK_IMPORTED_MODULE_6__recipe_book_recipe_edit_recipe_edit_component__["a" /* RecipeEditComponent */] }
         ] },
-    { path: 'shopping-list', component: __WEBPACK_IMPORTED_MODULE_5__shopping_shopping_list_shopping_list_component__["a" /* ShoppingListComponent */] }
+    { path: 'shopping-list', component: __WEBPACK_IMPORTED_MODULE_4__shopping_shopping_list_shopping_list_component__["a" /* ShoppingListComponent */] }
 ];
 var AppRoutingModule = (function () {
     function AppRoutingModule() {
@@ -324,6 +322,7 @@ module.exports = "<div class='row'>\r\n\t<div class='col-md-12'>\r\n\t\t<h3>Reci
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_router__ = __webpack_require__("../../../router/@angular/router.es5.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__shopping_shopping_service__ = __webpack_require__("../../../../../src/app/shopping/shopping.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__recipe_service__ = __webpack_require__("../../../../../src/app/recipe-book/recipe.service.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -336,16 +335,18 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+
 var RecipeDetailComponent = (function () {
-    function RecipeDetailComponent(shoppingservice, route) {
+    function RecipeDetailComponent(shoppingservice, recipeService, route) {
         this.shoppingservice = shoppingservice;
+        this.recipeService = recipeService;
         this.route = route;
     }
     RecipeDetailComponent.prototype.ngOnInit = function () {
         var _this = this;
         // subscribe to the data coming in from the routing parameter
-        this.route.data.subscribe(function (data) {
-            _this.recipe = data['recipe'];
+        this.route.params.subscribe(function (data) {
+            _this.recipe = _this.recipeService.getRecipe(+data['id']);
         });
     };
     RecipeDetailComponent.prototype.onToShoppingList = function () {
@@ -360,10 +361,10 @@ RecipeDetailComponent = __decorate([
         template: __webpack_require__("../../../../../src/app/recipe-book/recipe-detail/recipe-detail.component.html"),
         styles: [__webpack_require__("../../../../../src/app/recipe-book/recipe-detail/recipe-detail.component.css")]
     }),
-    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_2__shopping_shopping_service__["a" /* ShoppingService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__shopping_shopping_service__["a" /* ShoppingService */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* ActivatedRoute */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* ActivatedRoute */]) === "function" && _b || Object])
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_2__shopping_shopping_service__["a" /* ShoppingService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__shopping_shopping_service__["a" /* ShoppingService */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_3__recipe_service__["a" /* RecipeService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__recipe_service__["a" /* RecipeService */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* ActivatedRoute */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* ActivatedRoute */]) === "function" && _c || Object])
 ], RecipeDetailComponent);
 
-var _a, _b;
+var _a, _b, _c;
 //# sourceMappingURL=recipe-detail.component.js.map
 
 /***/ }),
@@ -389,7 +390,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/recipe-book/recipe-edit/recipe-edit.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"row\">\r\n  <h3>{{ editMode ? 'Edit' : 'New' }} Recipe</h3>\r\n</div>\r\n\r\n<!--<div class=\"row\"-->\r\n  <!--[class]=\"editMode ? 'image-path-visible' : ''\">-->\r\n  <!--<div class=\"col-xs-12 form-group\">-->\r\n    <!--<img-->\r\n        <!--class=\"img-responsive img-recipe-edit\"-->\r\n        <!--[src]=\"currentRecipe.imagePath\"-->\r\n         <!--alt=\"{{currentRecipe.name}}\" />-->\r\n  <!--</div>-->\r\n<!--</div>-->\r\n\r\n<div class=\"row\">\r\n  <div class=\"col-xs-12\">\r\n\r\n    <form [formGroup]=\"recipeEditForm\" (ngSubmit)=\"onSubmit()\">\r\n\r\n      <div class=\"form-group\">\r\n        <label for=\"recipeName\">Name</label>\r\n        <input type='text'\r\n               id='recipeName'\r\n               class=\"form-control\"\r\n               name=\"recipeName\"\r\n               formControlName=\"recipeName\"\r\n               placeholder=\"Recipe name\"\r\n               required>\r\n      </div>\r\n\r\n      <div class=\"form-group\">\r\n        <label for=\"imagePath\">Image Path</label>\r\n        <input type='text'\r\n          id=\"imagePath\"\r\n          name=\"imagePath\"\r\n          formControlName=\"imagePath\"\r\n          class=\"form-control\"\r\n          placeholder=\"Image URL\"\r\n          required>\r\n      </div>\r\n\r\n      <div class=\"form-group\">\r\n        <label for=\"recipeDescription\">Description</label>\r\n        <textarea\r\n          rows=\"6\"\r\n          id=\"recipeDescription\"\r\n          name=\"recipeDescription\"\r\n          formControlName=\"recipeDescription\"\r\n          class=\"form-control\"\r\n          placeholder=\"About this recipe...\"\r\n          required></textarea>\r\n      </div>\r\n\r\n      <h4>Ingredients</h4>\r\n\r\n      <div class=\"row\" formArrayName=\"ingredients\" *ngFor=\"let ing of recipeEditForm.get('ingredients').controls; let i = index\">\r\n        <div [formGroupName]=\"i\">\r\n\r\n          <div class=\"col-xs-8 form-group\">\r\n            <input type=\"text\"\r\n                class=\"form-control\"\r\n                formControlName=\"name\">\r\n          </div>\r\n\r\n          <div class=\"col-xs-3 form-group\">\r\n            <input type=\"number\"\r\n                class=\"form-control\"\r\n                formControlName=\"amount\">\r\n          </div>\r\n\r\n          <div class=\"col-xs-1 form-group\">\r\n            <button type=\"button\"\r\n                    class=\"btn btn-danger\">x</button>\r\n          </div>\r\n\r\n        </div>\r\n      </div>\r\n\r\n      <div class=\"form-group\">\r\n        <button type='submit'\r\n                [disabled]=\"!recipeEditForm.valid\"\r\n                class=\"btn btn-success\">Save</button>\r\n\r\n        <button type=\"button\"\r\n            class=\"btn btn-success\"\r\n            (click)=\"onAddIngredient()\">Add Ingredient</button>\r\n\r\n        <button type=\"button\"\r\n                class=\"btn btn-danger\"\r\n                (click)=\"onCancel()\">Cancel</button>\r\n      </div>\r\n\r\n    </form>\r\n\r\n  </div>\r\n</div>\r\n"
+module.exports = "<div class=\"row\">\r\n  <div class=\"col-xs-12\">\r\n    <h3>{{ editMode ? 'Edit' : 'New' }} Recipe</h3>\r\n  </div>\r\n</div>\r\n\r\n<!--<div class=\"row\"-->\r\n  <!--[class]=\"editMode ? 'image-path-visible' : ''\">-->\r\n  <!--<div class=\"col-xs-12 form-group\">-->\r\n    <!--<img-->\r\n        <!--class=\"img-responsive img-recipe-edit\"-->\r\n        <!--[src]=\"currentRecipe.imagePath\"-->\r\n         <!--alt=\"{{currentRecipe.name}}\" />-->\r\n  <!--</div>-->\r\n<!--</div>-->\r\n\r\n<div class=\"row\">\r\n\r\n    <form [formGroup]=\"recipeEditForm\" (ngSubmit)=\"onSubmit()\">\r\n\r\n      <div class=\"form-group col-xs-12\">\r\n        <label for=\"recipeName\">Name</label>\r\n        <input type='text'\r\n               id='recipeName'\r\n               class=\"form-control\"\r\n               name=\"recipeName\"\r\n               formControlName=\"recipeName\"\r\n               placeholder=\"Recipe name\"\r\n               required>\r\n      </div>\r\n\r\n      <div class=\"form-group col-xs-12\">\r\n        <label for=\"imagePath\">Image Path</label>\r\n        <input type='text'\r\n          id=\"imagePath\"\r\n          name=\"imagePath\"\r\n          formControlName=\"imagePath\"\r\n          class=\"form-control\"\r\n          placeholder=\"Image URL\"\r\n          required>\r\n      </div>\r\n\r\n      <div class=\"form-group col-xs-12\">\r\n        <label for=\"recipeDescription\">Description</label>\r\n        <textarea\r\n          rows=\"6\"\r\n          id=\"recipeDescription\"\r\n          name=\"recipeDescription\"\r\n          formControlName=\"recipeDescription\"\r\n          class=\"form-control\"\r\n          placeholder=\"About this recipe...\"\r\n          required></textarea>\r\n      </div>\r\n\r\n      <div class=\"col-xs-12\">\r\n        <h4>Ingredients</h4>\r\n      </div>\r\n\r\n      <div class=\"\" formArrayName=\"ingredients\" *ngFor=\"let ing of recipeEditForm.get('ingredients').controls; let i = index\">\r\n        <div [formGroupName]=\"i\">\r\n\r\n          <div class=\"col-xs-8 form-group\">\r\n            <input type=\"text\"\r\n                class=\"form-control\"\r\n                formControlName=\"name\">\r\n          </div>\r\n\r\n          <div class=\"col-xs-3 form-group\">\r\n            <input type=\"number\"\r\n                class=\"form-control\"\r\n                formControlName=\"amount\">\r\n          </div>\r\n\r\n          <div class=\"col-xs-1 form-group\">\r\n            <button type=\"button\"\r\n                    class=\"btn btn-danger\">x</button>\r\n          </div>\r\n\r\n        </div>\r\n      </div>\r\n\r\n      <div class=\"form-group col-xs-12\">\r\n        <button type='submit'\r\n                [disabled]=\"!recipeEditForm.valid\"\r\n                class=\"btn btn-success\">Save</button>\r\n\r\n        <button type=\"button\"\r\n            class=\"btn btn-default\"\r\n            (click)=\"onAddIngredient()\">Add Ingredient</button>\r\n\r\n        <button type=\"button\"\r\n                class=\"btn btn-danger\"\r\n                (click)=\"onCancel()\">Cancel</button>\r\n      </div>\r\n\r\n    </form>\r\n\r\n\r\n</div>\r\n"
 
 /***/ }),
 
@@ -436,17 +437,18 @@ var RecipeEditComponent = (function () {
     RecipeEditComponent.prototype.initForm = function () {
         var currentRecipe = (this.editMode) ?
             this.recipeService.getRecipe(this.id)
-            : new __WEBPACK_IMPORTED_MODULE_3__recipe_model__["a" /* Recipe */](-1, "", "", "", []);
+            : __WEBPACK_IMPORTED_MODULE_3__recipe_model__["a" /* Recipe */].emptyRecipe();
         var ingredientsData = new __WEBPACK_IMPORTED_MODULE_4__angular_forms__["a" /* FormArray */]([]);
-        currentRecipe.ingredients.forEach(function (ingredient) {
+        currentRecipe.ingredients.forEach(function (ing) {
             ingredientsData.push(new __WEBPACK_IMPORTED_MODULE_4__angular_forms__["c" /* FormGroup */]({
-                'name': new __WEBPACK_IMPORTED_MODULE_4__angular_forms__["b" /* FormControl */](ingredient.name, __WEBPACK_IMPORTED_MODULE_4__angular_forms__["g" /* Validators */].required),
-                'amount': new __WEBPACK_IMPORTED_MODULE_4__angular_forms__["b" /* FormControl */](ingredient.amount, __WEBPACK_IMPORTED_MODULE_4__angular_forms__["g" /* Validators */].required)
+                'name': new __WEBPACK_IMPORTED_MODULE_4__angular_forms__["b" /* FormControl */](ing.name, __WEBPACK_IMPORTED_MODULE_4__angular_forms__["g" /* Validators */].required),
+                'amount': new __WEBPACK_IMPORTED_MODULE_4__angular_forms__["b" /* FormControl */](ing.amount, [__WEBPACK_IMPORTED_MODULE_4__angular_forms__["g" /* Validators */].required,
+                    __WEBPACK_IMPORTED_MODULE_4__angular_forms__["g" /* Validators */].pattern(/^[1-9]+[0-9]*$/)])
             }));
         });
         this.recipeEditForm = new __WEBPACK_IMPORTED_MODULE_4__angular_forms__["c" /* FormGroup */]({
             'recipeName': new __WEBPACK_IMPORTED_MODULE_4__angular_forms__["b" /* FormControl */](currentRecipe.name, __WEBPACK_IMPORTED_MODULE_4__angular_forms__["g" /* Validators */].required),
-            'imagePath': new __WEBPACK_IMPORTED_MODULE_4__angular_forms__["b" /* FormControl */](currentRecipe.imagePath),
+            'imagePath': new __WEBPACK_IMPORTED_MODULE_4__angular_forms__["b" /* FormControl */](currentRecipe.imagePath, __WEBPACK_IMPORTED_MODULE_4__angular_forms__["g" /* Validators */].required),
             'recipeDescription': new __WEBPACK_IMPORTED_MODULE_4__angular_forms__["b" /* FormControl */](currentRecipe.description, __WEBPACK_IMPORTED_MODULE_4__angular_forms__["g" /* Validators */].required),
             'ingredients': ingredientsData
         });
@@ -454,7 +456,8 @@ var RecipeEditComponent = (function () {
     RecipeEditComponent.prototype.onAddIngredient = function () {
         this.recipeEditForm.get('ingredients').push(new __WEBPACK_IMPORTED_MODULE_4__angular_forms__["c" /* FormGroup */]({
             'name': new __WEBPACK_IMPORTED_MODULE_4__angular_forms__["b" /* FormControl */](null, __WEBPACK_IMPORTED_MODULE_4__angular_forms__["g" /* Validators */].required),
-            'amount': new __WEBPACK_IMPORTED_MODULE_4__angular_forms__["b" /* FormControl */](null, __WEBPACK_IMPORTED_MODULE_4__angular_forms__["g" /* Validators */].required)
+            'amount': new __WEBPACK_IMPORTED_MODULE_4__angular_forms__["b" /* FormControl */](null, [__WEBPACK_IMPORTED_MODULE_4__angular_forms__["g" /* Validators */].required,
+                __WEBPACK_IMPORTED_MODULE_4__angular_forms__["g" /* Validators */].pattern(/^[1-9]+[0-9]*$/)])
         }));
     };
     RecipeEditComponent.prototype.onCancel = function () {
@@ -462,10 +465,18 @@ var RecipeEditComponent = (function () {
         this.router.navigate(['../'], { 'relativeTo': this.route });
     };
     RecipeEditComponent.prototype.onSubmit = function () {
-        if (!this.editMode) {
-            var submitRecipe = new __WEBPACK_IMPORTED_MODULE_3__recipe_model__["a" /* Recipe */](-1, this.recipeEditForm.value.name, this.recipeEditForm.value.description, this.recipeEditForm.value.imagePath, null);
+        //build a recipe to submit
+        var submitRecipe = new __WEBPACK_IMPORTED_MODULE_3__recipe_model__["a" /* Recipe */](this.id, this.recipeEditForm.value.recipeName, this.recipeEditForm.value.recipeDescription, this.recipeEditForm.value.imagePath, this.recipeEditForm.value.ingredients);
+        console.log(JSON.stringify(submitRecipe));
+        //add or update depending on the mode
+        if (this.editMode) {
+            this.recipeService.updateRecipe(this.id, submitRecipe);
+        }
+        else {
             this.recipeService.addRecipe(submitRecipe);
         }
+        this.editMode = false;
+        this.recipeEditForm.reset();
     };
     return RecipeEditComponent;
 }());
@@ -605,10 +616,19 @@ var RecipeListComponent = (function () {
         this.router = router;
     }
     RecipeListComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        // get the initial recipe list
         this.recipes = this.recipeservice.getRecipes();
+        //also allow updating based on received events
+        this.recipeSubscription = this.recipeservice.recipesChanged
+            .subscribe(function (recipes) {
+            _this.recipes = recipes;
+        });
     };
     RecipeListComponent.prototype.onNewRecipe = function () {
         this.router.navigate(['/recipes/new']);
+    };
+    RecipeListComponent.prototype.ngOnDestroy = function () {
     };
     return RecipeListComponent;
 }());
@@ -738,6 +758,9 @@ var Recipe = (function () {
         this.imagePath = imagePath;
         this.ingredients = ingredients;
     }
+    Recipe.emptyRecipe = function () {
+        return new Recipe(-1, "", "", "", []);
+    };
     return Recipe;
 }());
 
@@ -751,25 +774,28 @@ var Recipe = (function () {
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return RecipeService; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__recipe_model__ = __webpack_require__("../../../../../src/app/recipe-book/recipe.model.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__shopping_ingredient_model__ = __webpack_require__("../../../../../src/app/shopping/ingredient.model.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__shopping_Ingredient_model__ = __webpack_require__("../../../../../src/app/shopping/Ingredient.model.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_Subject__ = __webpack_require__("../../../../rxjs/_esm5/Subject.js");
+
 
 
 var RecipeService = (function () {
     function RecipeService() {
+        this.recipesChanged = new __WEBPACK_IMPORTED_MODULE_2_rxjs_Subject__["a" /* Subject */]();
         this.recipes = [
-            new __WEBPACK_IMPORTED_MODULE_0__recipe_model__["a" /* Recipe */](1, 'Macaroni & cheese', 'nom nom nom', 'https://d3cizcpymoenau.cloudfront.net/images/legacy/34780/SFS_SouthernMacandCheese_20V216.jpg', [
-                new __WEBPACK_IMPORTED_MODULE_1__shopping_ingredient_model__["a" /* Ingredient */]("Pasta", 1),
-                new __WEBPACK_IMPORTED_MODULE_1__shopping_ingredient_model__["a" /* Ingredient */]("Cheese", 2)
+            new __WEBPACK_IMPORTED_MODULE_0__recipe_model__["a" /* Recipe */](0, 'Macaroni & cheese', 'nom nom nom', 'https://d3cizcpymoenau.cloudfront.net/images/legacy/34780/SFS_SouthernMacandCheese_20V216.jpg', [
+                new __WEBPACK_IMPORTED_MODULE_1__shopping_Ingredient_model__["a" /* Ingredient */]("Pasta", 1),
+                new __WEBPACK_IMPORTED_MODULE_1__shopping_Ingredient_model__["a" /* Ingredient */]("Cheese", 2)
             ]),
-            new __WEBPACK_IMPORTED_MODULE_0__recipe_model__["a" /* Recipe */](2, 'Beef Stew', 'Thick beef stew good eaten from a bowl or poured over biscuits', 'http://images.media-allrecipes.com/userphotos/720x405/729310.jpg', [
-                new __WEBPACK_IMPORTED_MODULE_1__shopping_ingredient_model__["a" /* Ingredient */]("Beef", 1),
-                new __WEBPACK_IMPORTED_MODULE_1__shopping_ingredient_model__["a" /* Ingredient */]("Tomato", 2),
-                new __WEBPACK_IMPORTED_MODULE_1__shopping_ingredient_model__["a" /* Ingredient */]("Pepper", 1)
+            new __WEBPACK_IMPORTED_MODULE_0__recipe_model__["a" /* Recipe */](1, 'Beef Stew', 'Thick beef stew good eaten from a bowl or poured over biscuits', 'http://images.media-allrecipes.com/userphotos/720x405/729310.jpg', [
+                new __WEBPACK_IMPORTED_MODULE_1__shopping_Ingredient_model__["a" /* Ingredient */]("Beef", 1),
+                new __WEBPACK_IMPORTED_MODULE_1__shopping_Ingredient_model__["a" /* Ingredient */]("Tomato", 2),
+                new __WEBPACK_IMPORTED_MODULE_1__shopping_Ingredient_model__["a" /* Ingredient */]("Pepper", 1)
             ]),
-            new __WEBPACK_IMPORTED_MODULE_0__recipe_model__["a" /* Recipe */](3, 'French Onion Soup', 'Classic simple French onion soup recipe, with beef stock base, slow-cooked caramelized onions', 'http://www.recipetineats.com/wp-content/uploads/2016/09/French-Onion-Soup-3-680x952.jpg', [
-                new __WEBPACK_IMPORTED_MODULE_1__shopping_ingredient_model__["a" /* Ingredient */]("Onions", 3),
-                new __WEBPACK_IMPORTED_MODULE_1__shopping_ingredient_model__["a" /* Ingredient */]("Beef stock", 2),
-                new __WEBPACK_IMPORTED_MODULE_1__shopping_ingredient_model__["a" /* Ingredient */]("Cheese", 2)
+            new __WEBPACK_IMPORTED_MODULE_0__recipe_model__["a" /* Recipe */](2, 'French Onion Soup', 'Classic simple French onion soup recipe, with beef stock base, slow-cooked caramelized onions', 'http://www.recipetineats.com/wp-content/uploads/2016/09/French-Onion-Soup-3-680x952.jpg', [
+                new __WEBPACK_IMPORTED_MODULE_1__shopping_Ingredient_model__["a" /* Ingredient */]("Onions", 3),
+                new __WEBPACK_IMPORTED_MODULE_1__shopping_Ingredient_model__["a" /* Ingredient */]("Beef stock", 2),
+                new __WEBPACK_IMPORTED_MODULE_1__shopping_Ingredient_model__["a" /* Ingredient */]("Cheese", 2)
             ])
         ];
     }
@@ -777,6 +803,12 @@ var RecipeService = (function () {
     };
     RecipeService.prototype.addRecipe = function (recipe) {
         this.recipes.push(recipe);
+        this.recipesChanged.next(this.recipes.slice());
+    };
+    RecipeService.prototype.updateRecipe = function (index, recipe) {
+        this.recipes[index] = recipe;
+        console.log(this.recipes);
+        this.recipesChanged.next(this.recipes.slice());
     };
     RecipeService.prototype.getRecipes = function () {
         //return a copy of the array
@@ -906,7 +938,7 @@ DropDownDirective = __decorate([
 
 /***/ }),
 
-/***/ "../../../../../src/app/shopping/ingredient.model.ts":
+/***/ "../../../../../src/app/shopping/Ingredient.model.ts":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -919,7 +951,7 @@ var Ingredient = (function () {
     return Ingredient;
 }());
 
-//# sourceMappingURL=ingredient.model.js.map
+//# sourceMappingURL=Ingredient.model.js.map
 
 /***/ }),
 
@@ -1009,7 +1041,7 @@ module.exports = "<div class='row'>\r\n\t<div class='col-md-12'>\r\n\t\t<h3>Shop
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ShoppingListEditorComponent; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__ingredient_model__ = __webpack_require__("../../../../../src/app/shopping/ingredient.model.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Ingredient_model__ = __webpack_require__("../../../../../src/app/shopping/Ingredient.model.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__shopping_service__ = __webpack_require__("../../../../../src/app/shopping/shopping.service.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_forms__ = __webpack_require__("../../../forms/@angular/forms.es5.js");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -1047,7 +1079,7 @@ var ShoppingListEditorComponent = (function () {
     ShoppingListEditorComponent.prototype.onSubmit = function () {
         console.log(this.shoppingListForm);
         if (this.shoppingListForm.valid) {
-            var ingredient = new __WEBPACK_IMPORTED_MODULE_1__ingredient_model__["a" /* Ingredient */](this.shoppingListForm.value.name, this.shoppingListForm.value.amount);
+            var ingredient = new __WEBPACK_IMPORTED_MODULE_1__Ingredient_model__["a" /* Ingredient */](this.shoppingListForm.value.name, this.shoppingListForm.value.amount);
             if (this.editingMode) {
                 this.editingMode = false;
                 this.shoppingservice.updateIngredient(this.editingIndex, ingredient);
@@ -1171,7 +1203,7 @@ var _a;
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ShoppingService; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__ingredient_model__ = __webpack_require__("../../../../../src/app/shopping/ingredient.model.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Ingredient_model__ = __webpack_require__("../../../../../src/app/shopping/Ingredient.model.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs_Subject__ = __webpack_require__("../../../../rxjs/_esm5/Subject.js");
 
 
@@ -1180,11 +1212,11 @@ var ShoppingService = (function () {
         this.ingredientChanged = new __WEBPACK_IMPORTED_MODULE_1_rxjs_Subject__["a" /* Subject */]();
         this.startedEditing = new __WEBPACK_IMPORTED_MODULE_1_rxjs_Subject__["a" /* Subject */]();
         this.ingredients = [
-            new __WEBPACK_IMPORTED_MODULE_0__ingredient_model__["a" /* Ingredient */]('Tomato', 3),
-            new __WEBPACK_IMPORTED_MODULE_0__ingredient_model__["a" /* Ingredient */]('Celery', 1),
-            new __WEBPACK_IMPORTED_MODULE_0__ingredient_model__["a" /* Ingredient */]('Carrot', 6),
-            new __WEBPACK_IMPORTED_MODULE_0__ingredient_model__["a" /* Ingredient */]('Potato', 2),
-            new __WEBPACK_IMPORTED_MODULE_0__ingredient_model__["a" /* Ingredient */]('Pasta', 1)
+            new __WEBPACK_IMPORTED_MODULE_0__Ingredient_model__["a" /* Ingredient */]('Tomato', 3),
+            new __WEBPACK_IMPORTED_MODULE_0__Ingredient_model__["a" /* Ingredient */]('Celery', 1),
+            new __WEBPACK_IMPORTED_MODULE_0__Ingredient_model__["a" /* Ingredient */]('Carrot', 6),
+            new __WEBPACK_IMPORTED_MODULE_0__Ingredient_model__["a" /* Ingredient */]('Potato', 2),
+            new __WEBPACK_IMPORTED_MODULE_0__Ingredient_model__["a" /* Ingredient */]('Pasta', 1)
         ];
     }
     ShoppingService.prototype.ngOnInit = function () {
