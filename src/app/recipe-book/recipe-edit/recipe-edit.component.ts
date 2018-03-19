@@ -90,5 +90,8 @@ export class RecipeEditComponent implements OnInit {
 
     this.editMode = false;
     this.recipeEditForm.reset();
+
+    this.router.navigate(['../'],
+      {'relativeTo': this.route});
   }
 }

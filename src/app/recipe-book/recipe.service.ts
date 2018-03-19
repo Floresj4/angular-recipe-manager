@@ -40,6 +40,7 @@ export class RecipeService implements OnInit {
 	}
 
 	addRecipe(recipe: Recipe) {
+	  recipe.id = this.recipes.length;
 	  this.recipes.push(recipe);
 	  this.recipesChanged.next(this.recipes.slice());
   }
