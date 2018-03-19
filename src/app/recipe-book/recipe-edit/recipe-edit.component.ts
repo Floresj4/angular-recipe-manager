@@ -81,8 +81,6 @@ export class RecipeEditComponent implements OnInit {
       this.recipeEditForm.value.imagePath,
       this.recipeEditForm.value.ingredients);
 
-    console.log(JSON.stringify(submitRecipe));
-
     //add or update depending on the mode
     if(this.editMode) {
       this.recipeService.updateRecipe(this.id, submitRecipe);
