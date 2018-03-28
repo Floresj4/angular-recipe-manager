@@ -71,6 +71,11 @@ export class RecipeEditComponent implements OnInit {
       {'relativeTo': this.route});
   }
 
+  onDeleteIngredient(index: number) {
+    // remove the form control
+    (<FormArray>this.recipeEditForm.get('ingredients')).removeAt(index);
+  }
+
   onSubmit() {
 
     //build a recipe to submit
