@@ -2,8 +2,9 @@ import { OnInit } from '@angular/core';
 import { Recipe } from './recipe.model';
 import { Ingredient } from '../shopping/Ingredient.model';
 import {Subject} from 'rxjs/Subject';
+import {HttpService} from '../shared/http-service';
 
-export class RecipeService implements OnInit {
+export class RecipeService implements OnInit, HttpService {
 
   recipesChanged: Subject<Recipe[]> = new Subject<Recipe[]>();
 
@@ -69,4 +70,12 @@ export class RecipeService implements OnInit {
 
 		return recipe;
 	}
+
+	fetch() {
+    console.log('recipe.service fetch');
+  }
+
+  save() {
+    console.log('recipe.service save');
+  }
 }

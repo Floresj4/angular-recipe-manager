@@ -1,8 +1,9 @@
 import { OnInit} from '@angular/core';
 import { Ingredient } from './Ingredient.model';
-import {Subject} from 'rxjs/Subject';
+import { Subject } from 'rxjs/Subject';
+import { HttpService } from '../shared/http-service';
 
-export class ShoppingService implements OnInit {
+export class ShoppingService implements OnInit, HttpService {
 
   ingredientChanged = new Subject<Ingredient[]>();
 
@@ -48,5 +49,13 @@ export class ShoppingService implements OnInit {
 	updateIngredient(index: number, newIngredient: Ingredient) {
 	  this.ingredients[index] = newIngredient;
 	  this.ingredientChanged.next(this.ingredients.slice());
+  }
+
+  fetch() {
+	  console.log('shopping.service fetch');
+  }
+
+  save() {
+    console.log('shopping.service save');
   }
 }
