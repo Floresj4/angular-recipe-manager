@@ -21,6 +21,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
               private router: Router) { }
 
   ngOnInit() {
+    this.urlSubscription =
     this.router.events.subscribe((event: Event) => {
       if(event instanceof NavigationEnd) {
         let root = this.getNavigationRoot(event.urlAfterRedirects);
