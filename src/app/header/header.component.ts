@@ -1,27 +1,48 @@
-import { Component, OnInit } from '@angular/core';
-import {RecipeService} from '../recipe-book/recipe.service';
-import {ShoppingService} from '../shopping/shopping.service';
-import {ActivatedRoute, Router, Event, NavigationEnd} from '@angular/router';
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import { RecipeService } from '../recipe-book/recipe.service';
+import { ShoppingService } from '../shopping/shopping.service';
+import { Router, Event, NavigationEnd } from '@angular/router';
+import {HttpService} from '../shared/http-service';
+import {Subscription} from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css']
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent implements OnInit, OnDestroy {
+
+  httpservice: HttpService;
+
+  urlSubscription: Subscription;
 
   constructor(private recipeService: RecipeService,
               private shoppingListService: ShoppingService,
-              private router: Router,
-              private route: ActivatedRoute) { }
+              private router: Router) { }
 
   ngOnInit() {
     this.router.events.subscribe((event: Event) => {
       if(event instanceof NavigationEnd) {
         let root = this.getNavigationRoot(event.urlAfterRedirects);
-        console.log(root);
+
+        switch(root) {
+          case 'recipe':
+            this.httpservice = this.recipeService;
+            break;
+
+          case 'shopping-list':
+            this.httpservice = this.shoppingListService;
+            break;
+
+          default:
+            throw `An error occurred selecting the service for ${root}`;
+        }
       }
     });
+  }
+
+  ngOnDestroy() {
+    this.urlSubscription.unsubscribe();
   }
 
   /**
@@ -38,10 +59,10 @@ export class HeaderComponent implements OnInit {
   }
 
   onSave() {
-
+    this.httpservice.save();
   }
 
   onFetch() {
-
+    this.httpservice.fetch();
   }
 }
