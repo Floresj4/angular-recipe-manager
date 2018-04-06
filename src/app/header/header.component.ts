@@ -2,7 +2,7 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import { RecipeService } from '../recipe-book/recipe.service';
 import { ShoppingService } from '../shopping/shopping.service';
 import { Router, Event, NavigationEnd } from '@angular/router';
-import {HttpService} from '../shared/http-service';
+import {IHttpService} from '../shared/http-service';
 import {Subscription} from 'rxjs/Subscription';
 
 @Component({
@@ -12,7 +12,7 @@ import {Subscription} from 'rxjs/Subscription';
 })
 export class HeaderComponent implements OnInit, OnDestroy {
 
-  httpservice: HttpService;
+  httpservice: IHttpService;
 
   urlSubscription: Subscription;
 

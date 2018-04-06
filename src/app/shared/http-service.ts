@@ -1,4 +1,4 @@
-export interface HttpService {
+export interface IHttpService {
   save();
   fetch();
 }

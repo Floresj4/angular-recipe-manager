@@ -2,9 +2,9 @@ import { OnInit } from '@angular/core';
 import { Recipe } from './recipe.model';
 import { Ingredient } from '../shopping/Ingredient.model';
 import {Subject} from 'rxjs/Subject';
-import {HttpService} from '../shared/http-service';
+import {IHttpService} from '../shared/http-service';
 
-export class RecipeService implements OnInit, HttpService {
+export class RecipeService implements OnInit, IHttpService {
 
   recipesChanged: Subject<Recipe[]> = new Subject<Recipe[]>();
 
