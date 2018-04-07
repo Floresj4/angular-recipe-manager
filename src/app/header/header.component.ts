@@ -27,7 +27,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
         let root = this.getNavigationRoot(event.urlAfterRedirects);
 
         switch(root) {
-          case 'recipe':
+          case 'recipes':
             this.httpservice = this.recipeService;
             break;
 
@@ -60,7 +60,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   onSave() {
-    this.httpservice.save();
+    // this.httpservice.save().subscribe((response: Response) => {
+    //   console.log(response);
+    // });
   }
 
   onFetch() {
