@@ -53,7 +53,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     for(let i = 1; i < url.length; i++) {
       let char = url.charAt(i);
       if(char === '?' || char === '/')
-        return url.substring(1, i - 1);
+        return url.substring(1, i);
     }
 
     return url.substr(1);

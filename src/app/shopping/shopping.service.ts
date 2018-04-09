@@ -1,8 +1,10 @@
-import { OnInit} from '@angular/core';
+import {Injectable, OnInit} from '@angular/core';
 import { Ingredient } from './Ingredient.model';
 import { Subject } from 'rxjs/Subject';
 import { IHttpService } from '../shared/http-service';
+import { Http } from '@angular/http';
 
+@Injectable()
 export class ShoppingService implements OnInit, IHttpService {
 
   ingredientChanged = new Subject<Ingredient[]>();
@@ -17,7 +19,7 @@ export class ShoppingService implements OnInit, IHttpService {
 		new Ingredient('Pasta', 1)
 	];
 
-	constructor() {
+	constructor(private http: Http) {
 	}
 
 	ngOnInit() {
@@ -57,5 +59,7 @@ export class ShoppingService implements OnInit, IHttpService {
 
   save() {
     console.log('shopping.service save');
+    // return this.http.post('https://ng-recipe-book-24918.firebaseio.com/ingredients.json',
+    //   this.ingredients);
   }
 }
