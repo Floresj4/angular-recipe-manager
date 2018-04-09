@@ -1,9 +1,9 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { RecipeService } from '../recipe-book/recipe.service';
 import { ShoppingService } from '../shopping/shopping.service';
 import { Router, Event, NavigationEnd } from '@angular/router';
-import {IHttpService} from '../shared/http-service';
-import {Subscription} from 'rxjs/Subscription';
+import { IHttpService } from '../shared/http-service';
+import { Subscription } from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-header',
@@ -60,14 +60,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   onSave() {
-    this.httpservice.save().subscribe((response: Response) => {
-      console.log(response);
-    });
+    this.httpservice.save();
   }
 
   onFetch() {
-    this.httpservice.fetch().subscribe((response: Response) => {
-      console.log(response);
-    });
+    this.httpservice.fetch();
   }
 }

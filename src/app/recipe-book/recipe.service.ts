@@ -1,8 +1,9 @@
-import {Injectable, OnInit} from '@angular/core';
+import { Injectable, OnInit } from '@angular/core';
 import { Recipe } from './recipe.model';
 import { Ingredient } from '../shopping/Ingredient.model';
-import {Subject} from 'rxjs/Subject';
-import {IHttpService} from '../shared/http-service';
+import { Subject } from 'rxjs/Subject';
+import { IHttpService } from '../shared/http-service';
+import {Http, Response} from '@angular/http';
 
 @Injectable()
 export class RecipeService implements OnInit, IHttpService {
@@ -35,7 +36,7 @@ export class RecipeService implements OnInit, IHttpService {
 	  ])
 	];
 
-	constructor() {
+	constructor(private http: Http) {
   }
 
 	ngOnInit() {
@@ -73,10 +74,16 @@ export class RecipeService implements OnInit, IHttpService {
 	}
 
 	fetch() {
-    console.log('recipe.service fetch');
+    this.http.get('https://ng-recipe-book-24918.firebaseio.com/recipes.json')
+      .subscribe((response: Response) => {
+        console.log(response);
+      });
   }
 
   save() {
-    console.log('recipe.service save');
+    return this.http.put('https://ng-recipe-book-24918.firebaseio.com/recipes.json', this.recipes)
+      .subscribe((response: Response) => {
+        console.log(response);
+      });
   }
 }
