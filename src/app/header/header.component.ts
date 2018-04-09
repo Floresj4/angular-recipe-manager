@@ -60,12 +60,14 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   onSave() {
-    // this.httpservice.save().subscribe((response: Response) => {
-    //   console.log(response);
-    // });
+    this.httpservice.save().subscribe((response: Response) => {
+      console.log(response);
+    });
   }
 
   onFetch() {
-    this.httpservice.fetch();
+    this.httpservice.fetch().subscribe((response: Response) => {
+      console.log(response);
+    });
   }
 }

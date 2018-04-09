@@ -54,12 +54,11 @@ export class ShoppingService implements OnInit, IHttpService {
   }
 
   fetch() {
-	  console.log('shopping.service fetch');
+	  return this.http.get('https://ng-recipe-book-24918.firebaseio.com/ingredients.json');
   }
 
   save() {
-    console.log('shopping.service save');
-    // return this.http.post('https://ng-recipe-book-24918.firebaseio.com/ingredients.json',
-    //   this.ingredients);
+    return this.http.put('https://ng-recipe-book-24918.firebaseio.com/ingredients.json',
+      this.ingredients);
   }
 }
