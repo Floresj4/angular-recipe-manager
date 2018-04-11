@@ -70,10 +70,15 @@ export class RecipeService implements IHttpService {
 		return recipe;
 	}
 
+	setRecipes(recipes: Recipe[]) {
+	  this.recipes = recipes;
+	  this.recipesChanged.next(this.recipes.slice());
+  }
+
 	fetch() {
     this.http.get('https://ng-recipe-book-24918.firebaseio.com/recipes.json')
       .subscribe((response: Response) => {
-        console.log(response);
+        this.setRecipes(response.json());
       });
   }
 
