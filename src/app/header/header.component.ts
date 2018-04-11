@@ -35,6 +35,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
             this.httpservice = this.shoppingListService;
             break;
 
+          case 'signup':
+          case 'signin':
+            break;
+
           default:
             throw `An error occurred selecting the service for ${root}`;
         }
@@ -61,6 +65,14 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   onSave() {
     this.httpservice.save();
+  }
+
+  onSignIn() {
+    this.router.navigate(['signin']);
+  }
+
+  onSignUp() {
+    this.router.navigate(['signup']);
   }
 
   onFetch() {
