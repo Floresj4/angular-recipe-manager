@@ -4,6 +4,7 @@ import { Ingredient } from '../shopping/Ingredient.model';
 import { Subject } from 'rxjs/Subject';
 import { IHttpService } from '../shared/http-service';
 import { Http, Response } from '@angular/http';
+import 'rxjs/Rx';
 
 @Injectable()
 export class RecipeService implements IHttpService {
@@ -77,8 +78,20 @@ export class RecipeService implements IHttpService {
 
 	fetch() {
     this.http.get('https://ng-recipe-book-24918.firebaseio.com/recipes.json')
-      .subscribe((response: Response) => {
-        this.setRecipes(response.json());
+      .map((response: Response) => {
+
+        // map to ensure empty ingredients do not cause errors
+        const recipes: Recipe[] = response.json();
+        for(let recipe of recipes) {
+          if(!recipe['ingredients']) {
+            recipe['ingredients'] = [];
+          }
+        }
+
+        return recipes;
+      })
+      .subscribe((recipes: Recipe[]) => {
+        this.setRecipes(recipes);
       });
   }
 
