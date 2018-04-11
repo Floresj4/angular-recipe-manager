@@ -18,6 +18,7 @@ import { RecipeStartComponent } from './recipe-book/recipe-start/recipe-start.co
 import { RecipeEditComponent } from './recipe-book/recipe-edit/recipe-edit.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
+import { SignupComponent } from './account/signup/signup.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { HttpModule } from '@angular/http';
 	  HeaderComponent,
     DropDownDirective,
     RecipeStartComponent,
-    RecipeEditComponent
+    RecipeEditComponent,
+    SignupComponent
   ],
   imports: [
     BrowserModule,
