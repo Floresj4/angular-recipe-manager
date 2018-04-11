@@ -1,11 +1,11 @@
-import {Injectable, OnInit} from '@angular/core';
+import {Injectable } from '@angular/core';
 import { Ingredient } from './Ingredient.model';
 import { Subject } from 'rxjs/Subject';
 import { IHttpService } from '../shared/http-service';
 import { Http, Response } from '@angular/http';
 
 @Injectable()
-export class ShoppingService implements OnInit, IHttpService {
+export class ShoppingService implements IHttpService {
 
   ingredientChanged = new Subject<Ingredient[]>();
 
@@ -20,9 +20,6 @@ export class ShoppingService implements OnInit, IHttpService {
 	];
 
 	constructor(private http: Http) {
-	}
-
-	ngOnInit() {
 	}
 
 	addIngredients(ing: Ingredient[]) {

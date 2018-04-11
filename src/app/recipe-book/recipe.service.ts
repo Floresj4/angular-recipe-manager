@@ -1,12 +1,12 @@
-import { Injectable, OnInit } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Recipe } from './recipe.model';
 import { Ingredient } from '../shopping/Ingredient.model';
 import { Subject } from 'rxjs/Subject';
 import { IHttpService } from '../shared/http-service';
-import {Http, Response} from '@angular/http';
+import { Http, Response } from '@angular/http';
 
 @Injectable()
-export class RecipeService implements OnInit, IHttpService {
+export class RecipeService implements IHttpService {
 
   recipesChanged: Subject<Recipe[]> = new Subject<Recipe[]>();
 
@@ -38,9 +38,6 @@ export class RecipeService implements OnInit, IHttpService {
 
 	constructor(private http: Http) {
   }
-
-	ngOnInit() {
-	}
 
 	addRecipe(recipe: Recipe) {
 	  recipe.id = this.recipes.length;
