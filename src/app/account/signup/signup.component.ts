@@ -23,6 +23,19 @@ export class SignupComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.signupForm.value);
+
+    if(this.signupForm.valid && this.passwordsAreValid()) {
+      console.log(this.signupForm.value);
+    }
+  }
+
+  /**
+   * simple check for password equality
+   * @returns {boolean}
+   */
+  passwordsAreValid() {
+    let pw = this.signupForm.value.password;
+    let cw = this.signupForm.value.cwpassword;
+    return pw === cw;
   }
 }
