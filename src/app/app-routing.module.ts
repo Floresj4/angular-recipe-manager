@@ -7,10 +7,12 @@ import { ShoppingListComponent } from './shopping/shopping-list/shopping-list.co
 import {RecipeStartComponent} from './recipe-book/recipe-start/recipe-start.component';
 import {RecipeEditComponent} from './recipe-book/recipe-edit/recipe-edit.component';
 import {SignupComponent} from './account/signup/signup.component';
+import {SigninComponent} from './account/signin/signin.component';
 
 const appRoutes: Routes = [
   { path: '', redirectTo: '/recipes', pathMatch: 'full' },
   { path: 'signup', component: SignupComponent },
+  { path: 'signin', component: SigninComponent },
 	{ path: 'recipes', component: RecipesComponent, children: [
 		{path: '', component: RecipeStartComponent,  },
 		{path: 'new', component: RecipeEditComponent }, //order matters in terms of parsing 'new' versus resolving an ID
