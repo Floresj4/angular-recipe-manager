@@ -5,36 +5,70 @@
       <h3>Sign up</h3>
     </div>
 
-    <div class="form-group">
-      <label for="firstname">First</label>
-      <input
-        id="firstname"
-        name="firstname"
-        formcontrolName="firstname"
-        class="form-control"
-        required>
-    </div>
+    <form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
 
-    <div class="form-group">
-      <label for="lastname">Last</label>
-      <input
-        id="lastname"
-        name="lastname"
-        formcontrolName="lastname"
-        class="form-control"
-        required>
-    </div>
+      <div class="form-group">
+        <label for="firstname">First</label>
+        <input
+          id="firstname"
+          name="firstname"
+          formcontrolName="firstname"
+          class="form-control"
+          required>
+      </div>
 
-    <div class="form-group">
-      <label for="email">Email</label>
-      <input
-        id="email"
-        name="email"
-        formcontrolName="email"
-        class="form-control"
-        email
-        required>
-    </div>
+      <div class="form-group">
+        <label for="lastname">Last</label>
+        <input
+          id="lastname"
+          name="lastname"
+          formcontrolName="lastname"
+          class="form-control"
+          required>
+      </div>
+
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input
+          id="email"
+          name="email"
+          formcontrolName="email"
+          class="form-control"
+          email
+          required>
+      </div>
+
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password"
+           id="password"
+           name="password"
+           formControlName="password"
+           class="form-control"
+           required>
+      </div>
+
+      <div class="form-group">
+        <label for="password">Confirm password</label>
+        <input type="cwpassword"
+               id="cwpassword"
+               name="cwpassword"
+               formControlName="cwpassword"
+               class="form-control"
+               required>
+      </div>
+
+      <div class="form-group">
+        <div class="signup-centered">
+          <button type="submit"
+            class="btn btn-primary">Sign up</button>
+          <button type="button"
+            class="btn btn-danger">Rest</button>
+        </div>
+      </div>
+
+    </form>
+
   </div>
 
 </div>
