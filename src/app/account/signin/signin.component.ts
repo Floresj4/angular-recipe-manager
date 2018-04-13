@@ -15,7 +15,9 @@ export class SigninComponent implements OnInit {
   ngOnInit() {
   }
 
-  onSignIn() {
-
+  onSubmit() {
+    if(this.signinForm.valid) {
+      console.log(this.signinForm.value);
+    }
   }
 }
