@@ -20,6 +20,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { SignupComponent } from './account/signup/signup.component';
 import { SigninComponent } from './account/signin/signin.component';
+import {AuthService} from './account/auth.service';
 
 @NgModule({
   declarations: [
@@ -45,7 +46,7 @@ import { SigninComponent } from './account/signin/signin.component';
 	  AppRoutingModule,
     HttpModule
   ],
-  providers: [RecipeService, RecipeResolver],
+  providers: [RecipeService, RecipeResolver, AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
