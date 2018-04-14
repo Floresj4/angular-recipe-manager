@@ -67,14 +67,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.httpservice.save();
   }
 
-  onSignIn() {
-    this.router.navigate(['signin']);
-  }
-
-  onSignUp() {
-    this.router.navigate(['signup']);
-  }
-
   onFetch() {
     this.httpservice.fetch();
   }
