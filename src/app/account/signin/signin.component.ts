@@ -17,7 +17,9 @@ export class SigninComponent implements OnInit {
 
   onSubmit() {
     if(this.signinForm.valid) {
-      console.log(this.signinForm.value);
+      const email = this.signinForm.value.email;
+      const password = this.signinForm.value.password;
+
     }
   }
 }
