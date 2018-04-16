@@ -1,5 +1,6 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {NgForm, NgModel} from '@angular/forms';
+import {AuthService} from '../auth.service';
 
 @Component({
   selector: 'app-signin',
@@ -10,7 +11,7 @@ export class SigninComponent implements OnInit {
 
   @ViewChild('signinForm') signinForm: NgForm;
 
-  constructor() { }
+  constructor(private auth: AuthService) { }
 
   ngOnInit() {
   }
@@ -20,6 +21,7 @@ export class SigninComponent implements OnInit {
       const email = this.signinForm.value.email;
       const password = this.signinForm.value.password;
 
+      this.auth.signInUser(email, password);
     }
   }
 }
