@@ -25,6 +25,12 @@ export class SignupComponent implements OnInit {
     if (this.signupForm.valid) {
       this.auth.signUpUser(this.signupForm.value.email,
         this.signupForm.value.password);
+
+      this.onReset();
     }
+  }
+
+  onReset() {
+    this.signupForm.reset();
   }
 }
