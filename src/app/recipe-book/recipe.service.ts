@@ -5,6 +5,7 @@ import { Subject } from 'rxjs/Subject';
 import { IHttpService } from '../shared/http-service';
 import { Http, Response } from '@angular/http';
 import 'rxjs/Rx';
+import {AuthService} from '../account/auth.service';
 
 @Injectable()
 export class RecipeService implements IHttpService {
@@ -37,7 +38,8 @@ export class RecipeService implements IHttpService {
 	  ])
 	];
 
-	constructor(private http: Http) {
+	constructor(private http: Http,
+              private auth: AuthService) {
   }
 
 	addRecipe(recipe: Recipe) {
@@ -77,7 +79,10 @@ export class RecipeService implements IHttpService {
   }
 
 	fetch() {
-    this.http.get('https://ng-recipe-book-24918.firebaseio.com/recipes.json')
+    //will return either the initial token or an updated
+    const token = this.auth.getToken()
+
+    this.http.get('https://ng-recipe-book-24918.firebaseio.com/recipes.json?auth=' + token)
       .map((response: Response) => {
 
         // map to ensure empty ingredients do not cause errors
