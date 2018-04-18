@@ -21,6 +21,7 @@ import { HttpModule } from '@angular/http';
 import { SignupComponent } from './account/signup/signup.component';
 import { SigninComponent } from './account/signin/signin.component';
 import {AuthService} from './account/auth.service';
+import {AuthGuard} from './account/auth-guard.service';
 
 @NgModule({
   declarations: [
@@ -46,7 +47,7 @@ import {AuthService} from './account/auth.service';
 	  AppRoutingModule,
     HttpModule
   ],
-  providers: [RecipeService, RecipeResolver, AuthService],
+  providers: [RecipeService, RecipeResolver, AuthService, AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
