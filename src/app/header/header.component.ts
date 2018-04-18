@@ -4,6 +4,7 @@ import { ShoppingService } from '../shopping/shopping.service';
 import { Router, Event, NavigationEnd } from '@angular/router';
 import { IHttpService } from '../shared/http-service';
 import { Subscription } from 'rxjs/Subscription';
+import {AuthService} from '../account/auth.service';
 
 @Component({
   selector: 'app-header',
@@ -18,6 +19,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   constructor(private recipeService: RecipeService,
               private shoppingListService: ShoppingService,
+              private auth: AuthService,
               private router: Router) { }
 
   ngOnInit() {
