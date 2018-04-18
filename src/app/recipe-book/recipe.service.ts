@@ -101,7 +101,7 @@ export class RecipeService implements IHttpService {
   }
 
   save() {
-    return this.http.put('https://ng-recipe-book-24918.firebaseio.com/recipes.json', this.recipes)
+    this.http.put('https://ng-recipe-book-24918.firebaseio.com/recipes.json', this.recipes)
       .subscribe((response: Response) => {
         console.log(response);
       });
