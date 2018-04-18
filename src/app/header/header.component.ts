@@ -69,6 +69,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.httpservice.save();
   }
 
+  onSignOut() {
+    this.auth.logout();
+    this.router.navigate(['/recipes']);
+  }
+
   onFetch() {
     this.httpservice.fetch();
   }

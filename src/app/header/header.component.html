@@ -32,6 +32,10 @@
         </li>
       </ng-template>
 
+      <ng-template [ngIf]="auth.isAuthenticated()">
+        <li><a class="menu-btn" (click)="onSignOut()">Sign Out</a></li>
+      </ng-template>
+
 		</ul>
 	</div>
 </nav>
