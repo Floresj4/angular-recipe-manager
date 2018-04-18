@@ -3,6 +3,7 @@ import { Ingredient } from './Ingredient.model';
 import { Subject } from 'rxjs/Subject';
 import { IHttpService } from '../shared/http-service';
 import { Http, Response } from '@angular/http';
+import {AuthService} from '../account/auth.service';
 
 @Injectable()
 export class ShoppingService implements IHttpService {
@@ -19,7 +20,8 @@ export class ShoppingService implements IHttpService {
 		new Ingredient('Pasta', 1)
 	];
 
-	constructor(private http: Http) {
+	constructor(private http: Http,
+              private auth: AuthService) {
 	}
 
 	addIngredients(ing: Ingredient[]) {
@@ -51,14 +53,20 @@ export class ShoppingService implements IHttpService {
   }
 
   fetch() {
-	  this.http.get('https://ng-recipe-book-24918.firebaseio.com/ingredients.json')
+    //will return either the initial token or an updated
+	  const token = this.auth.getToken();
+
+	  this.http.get('https://ng-recipe-book-24918.firebaseio.com/ingredients.json?auth=' + token)
       .subscribe((response: Response) => {
         console.log(response);
       });
   }
 
   save() {
-    this.http.put('https://ng-recipe-book-24918.firebaseio.com/ingredients.json', this.ingredients)
+    //will return either the initial token or an updated
+    const token = this.auth.getToken();
+
+    this.http.put('https://ng-recipe-book-24918.firebaseio.com/ingredients.json?auth=' + token, this.ingredients)
       .subscribe((response: Response) => {
         console.log(response);
       });

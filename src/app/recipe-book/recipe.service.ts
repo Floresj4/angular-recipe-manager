@@ -101,7 +101,10 @@ export class RecipeService implements IHttpService {
   }
 
   save() {
-    this.http.put('https://ng-recipe-book-24918.firebaseio.com/recipes.json', this.recipes)
+    //will return either the initial token or an updated
+    const token = this.auth.getToken();
+
+    this.http.put('https://ng-recipe-book-24918.firebaseio.com/recipes.json?auth=' + token, this.recipes)
       .subscribe((response: Response) => {
         console.log(response);
       });
