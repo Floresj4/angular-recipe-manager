@@ -33,8 +33,8 @@ export class SigninComponent implements OnInit {
               this.auth.token = token
             });
 
+          //navigate on success
           this.router.navigate(['/recipes']);
-
         })
         .catch(error => console.log(error));;
     }
