@@ -6,22 +6,17 @@ import { AppComponent } from './app.component';
 import { ShoppingListComponent } from './shopping/shopping-list/shopping-list.component';
 import { ShoppingListEditorComponent } from './shopping/shopping-list-editor/shopping-list-editor.component';
 import { IngredientComponent } from './shopping/ingredient/ingredient.component';
-import { RecipesComponent } from './recipe-book/recipes/recipes.component';
-import { RecipeDetailComponent } from './recipe-book/recipe-detail/recipe-detail.component';
-import { RecipeItemComponent } from './recipe-book/recipe-item/recipe-item.component';
-import { RecipeListComponent } from './recipe-book/recipe-list/recipe-list.component';
 import { RecipeService } from './recipe-book/recipe.service';
 import { RecipeResolver } from './recipe-book/recipe-resolver.service';
 import { HeaderComponent } from './header/header.component';
 import { DropDownDirective } from './shared/dropdown.directive';
-import { RecipeStartComponent } from './recipe-book/recipe-start/recipe-start.component';
-import { RecipeEditComponent } from './recipe-book/recipe-edit/recipe-edit.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { SignupComponent } from './account/signup/signup.component';
 import { SigninComponent } from './account/signin/signin.component';
 import {AuthService} from './account/auth.service';
 import {AuthGuard} from './account/auth-guard.service';
+import {RecipesModule} from './recipe-book/recipes.module';
 
 @NgModule({
   declarations: [
@@ -29,14 +24,8 @@ import {AuthGuard} from './account/auth-guard.service';
     ShoppingListComponent,
 	  ShoppingListEditorComponent,
 	  IngredientComponent,
-	  RecipesComponent,
-	  RecipeDetailComponent,
-	  RecipeItemComponent,
-	  RecipeListComponent,
 	  HeaderComponent,
     DropDownDirective,
-    RecipeStartComponent,
-    RecipeEditComponent,
     SignupComponent,
     SigninComponent
   ],
@@ -45,6 +34,7 @@ import {AuthGuard} from './account/auth-guard.service';
     FormsModule,
     ReactiveFormsModule,
 	  AppRoutingModule,
+    RecipesModule,
     HttpModule
   ],
   providers: [RecipeService, RecipeResolver, AuthService, AuthGuard],
