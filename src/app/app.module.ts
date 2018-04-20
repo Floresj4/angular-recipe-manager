@@ -8,26 +8,24 @@ import { AppComponent } from './app.component';
 import { RecipeService } from './recipe-book/recipe.service';
 import { RecipeResolver } from './recipe-book/recipe-resolver.service';
 import { HeaderComponent } from './header/header.component';
-import { SignupComponent } from './account/signup/signup.component';
-import { SigninComponent } from './account/signin/signin.component';
 import { AuthService } from './account/auth.service';
 import { AuthGuard } from './account/auth-guard.service';
 import { RecipesModule } from './recipe-book/recipes.module';
 import { SharedModule } from './shared/shared.module';
 import { ShoppingListModule } from './shopping/shopping-list.module';
+import { AccountModule } from './account/account.module';
 
 @NgModule({
   declarations: [
     AppComponent,
 	  HeaderComponent,
-    SignupComponent,
-    SigninComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,
 	  AppRoutingModule,
+    AccountModule,
     RecipesModule,
     ShoppingListModule,
     HttpModule,
