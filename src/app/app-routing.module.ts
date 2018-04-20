@@ -1,13 +1,8 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { SignupComponent } from './account/signup/signup.component';
-import { SigninComponent } from './account/signin/signin.component';
-
 const appRoutes: Routes = [
-  { path: '', redirectTo: '/recipes', pathMatch: 'full' },
-  { path: 'signup', component: SignupComponent },
-  { path: 'signin', component: SigninComponent }
+  { path: '', redirectTo: '/recipes', pathMatch: 'full' }
 ];
 
 @NgModule({
