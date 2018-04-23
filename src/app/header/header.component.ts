@@ -37,6 +37,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
             this.httpservice = this.shoppingListService;
             break;
 
+          case '':
           case 'signup':
           case 'signin':
             break;
