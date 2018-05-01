@@ -33,7 +33,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
             this.httpservice = this.recipeService;
             break;
 
-          case 'shopping-list':
+          case 'shopping':
             this.httpservice = this.shoppingListService;
             break;
 
