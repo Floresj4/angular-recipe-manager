@@ -7,31 +7,27 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { RecipeService } from './recipe-book/recipe.service';
 import { RecipeResolver } from './recipe-book/recipe-resolver.service';
-import { HeaderComponent } from './header/header.component';
 import { AuthService } from './account/auth.service';
 import { AuthGuard } from './account/auth-guard.service';
 import { RecipesModule } from './recipe-book/recipes.module';
 import { SharedModule } from './shared/shared.module';
 import { ShoppingListModule } from './shopping/shopping-list.module';
 import { AccountModule } from './account/account.module';
-import { HomeComponent } from './home/home.component';
+import {CoreModule} from './core/core.module';
 
 @NgModule({
   declarations: [
-    AppComponent,
-	  HeaderComponent,
-	  HomeComponent,
+    AppComponent
   ],
   imports: [
     BrowserModule,
-    FormsModule,
-    ReactiveFormsModule,
+    HttpModule,
 	  AppRoutingModule,
+    SharedModule,
+    CoreModule,
     AccountModule,
     RecipesModule,
     ShoppingListModule,
-    HttpModule,
-    SharedModule
   ],
   providers: [RecipeService, RecipeResolver, AuthService, AuthGuard],
   bootstrap: [AppComponent]

@@ -1,10 +1,10 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { RecipeService } from '../recipe-book/recipe.service';
-import { ShoppingService } from '../shopping/shopping.service';
+import { RecipeService } from '../../recipe-book/recipe.service';
+import { ShoppingService } from '../../shopping/shopping.service';
 import { Router, Event, NavigationEnd } from '@angular/router';
-import { IHttpService } from '../shared/http-service';
+import { IHttpService } from '../../shared/http-service';
 import { Subscription } from 'rxjs/Subscription';
-import {AuthService} from '../account/auth.service';
+import {AuthService} from '../../account/auth.service';
 
 @Component({
   selector: 'app-header',
