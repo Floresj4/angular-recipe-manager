@@ -1,10 +1,10 @@
-import {NgModule} from '@angular/core';
-import {RouterModule, Routes} from '@angular/router';
-import {RecipeEditComponent} from './recipe-edit/recipe-edit.component';
-import {RecipeStartComponent} from './recipe-start/recipe-start.component';
-import {RecipesComponent} from './recipes/recipes.component';
-import {AuthGuard} from '../account/auth-guard.service';
-import {RecipeDetailComponent} from './recipe-detail/recipe-detail.component';
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
+import { RecipeEditComponent } from './recipe-edit/recipe-edit.component';
+import { RecipeStartComponent } from './recipe-start/recipe-start.component';
+import { RecipesComponent } from './recipes/recipes.component';
+import { AuthGuard } from '../account/auth-guard.service';
+import { RecipeDetailComponent } from './recipe-detail/recipe-detail.component';
 
 const recipesRoutes: Routes = [
   { path: '', component: RecipesComponent, children: [
@@ -22,6 +22,9 @@ const recipesRoutes: Routes = [
   ],
   exports: [
     RouterModule
+  ],
+  providers: [
+    AuthGuard
   ]
 })
 export class RecipesRoutingModule {

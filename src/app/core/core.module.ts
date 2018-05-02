@@ -24,8 +24,7 @@ import {AuthService} from '../account/auth.service';
   providers: [
     RecipeService,
     RecipeResolver,
-    AuthService,
-    AuthGuard
+    AuthService
   ]
 })
 export class CoreModule {
